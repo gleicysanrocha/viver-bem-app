@@ -131,11 +131,14 @@
         <section id="view-dynamic" class="view-section" style="display: none;">
             <div id="results">
                 <!-- Re-utilizando a estrutura de tabs mas com novo estilo global -->
-                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 2rem;">
-                    <button class="btn-outline tab-btn" onclick="switchTab('resumo')">🏠 Resumo</button>
-                    <button class="btn-outline tab-btn" onclick="switchTab('nutricao')">🍎 Dieta</button>
-                    <button class="btn-outline tab-btn" onclick="switchTab('treino')">💪 Treino</button>
-                    <button class="btn-outline tab-btn" onclick="switchTab('cronograma')">📅 Calendário</button>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 0; flex: 1;">
+                        <button class="btn-outline tab-btn" onclick="switchTab('resumo')">🏠 Resumo</button>
+                        <button class="btn-outline tab-btn" onclick="switchTab('nutricao')">🍎 Dieta</button>
+                        <button class="btn-outline tab-btn" onclick="switchTab('treino')">💪 Treino</button>
+                        <button class="btn-outline tab-btn" onclick="switchTab('cronograma')">📅 Calendário</button>
+                    </div>
+                    <button class="btn-primary" style="padding: 0.8rem 1.5rem; font-size: 0.9rem; background: var(--secondary);" onclick="editCurrentPlan(); navigate('anamnese');">⚙️ Ajustar Plano</button>
                 </div>
 
                 <div id="resumo" class="tab-content">

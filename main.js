@@ -909,13 +909,8 @@ function resetAnamnese(editData = null) {
                         <input type="date" id="data-u" value="${editData ? editData.data_inicio.split('/').reverse().join('-') : new Date().toISOString().split('T')[0]}" ${isEditingMode ? 'disabled' : ''}>
                     </div>
                     <div class="form-group">
-                        <label>⏱️ Duração do Projeto</label>
-                        <select id="duracao-u">
-                            <option value="4" ${editData && editData.duracao == 4 ? 'selected' : ''}>4 Semanas (Foco Total)</option>
-                            <option value="8" ${editData && editData.duracao == 8 ? 'selected' : ''}>8 Semanas (Intermediário)</option>
-                            <option value="12" ${editData && (editData.duracao == 12 || !editData.duracao) ? 'selected' : ''}>12 Semanas (Ideal/Padrão)</option>
-                            <option value="24" ${editData && editData.duracao == 24 ? 'selected' : ''}>24 Semanas (Longo Prazo/Estilo de Vida)</option>
-                        </select>
+                        <label>⏱️ Duração do Projeto (Semanas)</label>
+                        <input type="number" id="duracao-u" required placeholder="Ex: 52 (para 1 ano)" min="1" max="500" value="${editData && editData.duracao ? editData.duracao : 12}">
                     </div>
                 </div>
                 
