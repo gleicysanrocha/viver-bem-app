@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viver Bem | IA Personal Alpha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- PWA Icons & iOS Support -->
+    <link rel="apple-touch-icon" href="./images/icon-192.png?v=2">
+    <link rel="shortcut icon" href="./images/icon-192.png?v=2" type="image/png">
+    <meta name="theme-color" content="#10b981">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="manifest" href="./manifest.json?v=2">
+</head>
+
+<body class="dashboard-active">
+    <!-- Modern Background Mesh -->
+    <div class="bg-mesh">
+        <div class="mesh-blob mesh-blob-1"></div>
+        <div class="mesh-blob mesh-blob-2"></div>
+    </div>
+
+    <!-- Auth Overlay -->
+    <div id="auth-screen" class="auth-overlay">
+        <div class="auth-card">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🌿</div>
+            <h2 id="auth-title">Viver Bem</h2>
+            <p id="auth-subtitle" style="margin-bottom: 2rem;">Sua jornada para a saúde começa aqui</p>
+
+            <div class="form-group">
+                <label>E-mail</label>
+                <input type="email" id="auth-user" placeholder="seu@email.com">
+            </div>
+            <div class="form-group">
+                <label>Senha</label>
+                <input type="password" id="auth-pass" placeholder="••••••••">
+            </div>
+
+            <button class="btn-primary" style="width: 100%;" id="btn-auth" onclick="handleAuth()">Entrar</button>
+            
+            <p style="margin-top: 2rem; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+                <span id="auth-toggle-text">Novo por aqui?</span>
+                <a href="#" style="color: var(--primary); font-weight: 700; text-decoration: none;" onclick="toggleAuthMode()">Crie sua conta</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Sidebar (Desktop) -->
+    <aside class="sidebar" id="sidebar" style="display: none;">
+        <div class="sidebar-logo">
+            <span style="color: var(--primary);">🌿</span> Viver Bem
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item" onclick="navigate('dashboard')">
+                <span>🏠</span> Painel
+            </div>
+            <div class="nav-item" onclick="navigate('plano-atual')">
+                <span>📋</span> Plano Ativo
+            </div>
+            <div class="nav-item" onclick="navigate('historico')">
+                <span>🕒</span> Histórico
+            </div>
+            <div class="nav-item" onclick="navigate('anamnese')">
+                <span>✨</span> Novo Plano
+            </div>
+        </nav>
+        
+        <div class="nav-item" onclick="handleLogout()" style="color: var(--danger); margin-top: auto; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+            <span>🚪</span> Sair
+        </div>
+    </aside>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav" id="bottom-nav" style="display: none;">
+        <div class="bottom-nav-item" onclick="navigate('dashboard')">
+            <span style="font-size: 1.2rem;">🏠</span>
+            <span>Início</span>
+        </div>
+        <div class="bottom-nav-item" onclick="navigate('plano-atual')">
+            <span style="font-size: 1.2rem;">📋</span>
+            <span>Plano</span>
+        </div>
+        <div class="bottom-nav-item" onclick="navigate('anamnese')">
+            <span style="font-size: 1.2rem;">✨</span>
+            <span>Novo</span>
+        </div>
+        <div class="bottom-nav-item" onclick="navigate('historico')">
+            <span style="font-size: 1.2rem;">🕒</span>
+            <span>Log</span>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="app-container" style="display: none;">
+        <!-- Dashboard Section -->
+        <section id="view-dashboard" class="view-section">
+            <header style="margin-bottom: 3rem;">
+                <h1 style="font-size: 2.5rem; letter-spacing: -1.5px;">Olá, <span id="user-display-name">Carregando...</span></h1>
+                <p style="color: var(--text-muted); font-size: 1.1rem;">Bem-vindo ao seu painel de controle de saúde.</p>
+            </header>
+
+            <div class="grid">
+                <div class="card" style="border-left: 4px solid var(--primary);">
+                    <label>Status Corporal</label>
+                    <div id="dash-info"></div>
+                </div>
+                <div class="card" style="border-left: 4px solid var(--accent); background: linear-gradient(to bottom right, #fff, #fffbeb);">
+                    <label>IA Personal Alpha</label>
+                    <p id="personal-alpha-message" style="font-weight: 500; line-height: 1.6;"></p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 2.5rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h3>Sua Jornada</h3>
+                    <button class="btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem;" onclick="abrirModalRegistro()">+ Registrar Peso</button>
+                </div>
+                <canvas id="evolutionChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Dynamic Content Section -->
+        <section id="view-dynamic" class="view-section" style="display: none;">
+            <div id="results">
+                <!-- Re-utilizando a estrutura de tabs mas com novo estilo global -->
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 2rem;">
+                    <button class="btn-outline tab-btn" onclick="switchTab('resumo')">🏠 Resumo</button>
+                    <button class="btn-outline tab-btn" onclick="switchTab('nutricao')">🍎 Dieta</button>
+                    <button class="btn-outline tab-btn" onclick="switchTab('treino')">💪 Treino</button>
+                    <button class="btn-outline tab-btn" onclick="switchTab('cronograma')">📅 Calendário</button>
+                </div>
+
+                <div id="resumo" class="tab-content">
+                    <div class="grid" id="resumo-grid-content"></div>
+                </div>
+
+                <div id="nutricao" class="tab-content" style="display: none;">
+                    <div id="nutri-header" style="margin-bottom: 2rem;"></div>
+                    <div id="nutri-content">
+                        <!-- Conteúdo será injetado pelo main.js -->
+                        <div class="grid">
+                            <div class="card">
+                                <h4>Café da Manhã</h4>
+                                <div id="nutri-tradicional"></div>
+                            </div>
+                            <div class="card" style="background: var(--surface-alt);">
+                                <h4>Opções</h4>
+                                <div class="sub-tabs" style="margin-bottom: 1rem;">
+                                    <button class="sub-tab-btn active" onclick="switchSubTab('tradicional')">Tradicional</button>
+                                    <button class="sub-tab-btn" onclick="switchSubTab('lowcarb')">Low Carb</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="treino" class="tab-content" style="display: none;">
+                    <div id="treino-container"></div>
+                </div>
+
+                <div id="cronograma" class="tab-content" style="display: none;">
+                    <div id="cronograma-container"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Anamnese Section -->
+        <section id="view-anamnese" class="view-section" style="display: none;">
+            <div id="view-anamnese-content"></div>
+        </section>
+
+        <!-- Histórico Section -->
+        <section id="view-historico" class="view-section" style="display: none;">
+            <div id="plan-history-list"></div>
+        </section>
+    </main>
+
+    <!-- Modal de Registro -->
+    <div id="modal-registro" class="auth-overlay" style="display: none;">
+        <div class="auth-card" style="max-width: 400px;">
+            <h3>Registrar Peso</h3>
+            <p style="margin-bottom: 1.5rem;">Como você está hoje?</p>
+            <div class="form-group">
+                <input type="number" id="novo-peso" step="0.1" placeholder="Ex: 85.0">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <button class="btn-outline" onclick="fecharModalRegistro()">Cancelar</button>
+                <button class="btn-primary" onclick="salvarProgressoSemanal()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application Script -->
+    <script type="module" src="./main.js"></script>
+</body>
+
+</html>
