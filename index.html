@@ -148,14 +148,17 @@
                         <!-- Conteúdo será injetado pelo main.js -->
                         <div class="grid">
                             <div class="card">
-                                <h4>Café da Manhã</h4>
+                                <h4 style="margin-bottom: 1rem;">Seu Cardápio</h4>
                                 <div id="nutri-tradicional"></div>
+                                <div id="nutri-lowcarb" style="display:none;"></div>
+                                <div id="nutri-proteico" style="display:none;"></div>
                             </div>
                             <div class="card" style="background: var(--surface-alt);">
-                                <h4>Opções</h4>
-                                <div class="sub-tabs" style="margin-bottom: 1rem;">
-                                    <button class="sub-tab-btn active" onclick="switchSubTab('tradicional')">Tradicional</button>
-                                    <button class="sub-tab-btn" onclick="switchSubTab('lowcarb')">Low Carb</button>
+                                <h4>Opções Dieta</h4>
+                                <div class="sub-tabs" style="margin-bottom: 1rem; display: flex; gap: 5px; flex-wrap: wrap;">
+                                    <button class="sub-tab-btn active btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('nutri-tradicional')">Tradicional</button>
+                                    <button class="sub-tab-btn btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('nutri-lowcarb')">Low Carb</button>
+                                    <button class="sub-tab-btn btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('nutri-proteico')">Proteica</button>
                                 </div>
                             </div>
                         </div>
@@ -167,7 +170,24 @@
                 </div>
 
                 <div id="cronograma" class="tab-content" style="display: none;">
-                    <div id="cronograma-container"></div>
+                    <div id="total-peso-perder" style="margin-bottom: 1rem;"></div>
+                    <div id="tabela-projecao-container" style="overflow-x: auto; margin-bottom: 2rem;">
+                        <table class="pro-table">
+                            <thead>
+                                <tr>
+                                    <th>Período</th>
+                                    <th>Data</th>
+                                    <th>Peso Previsto</th>
+                                    <th>Progresso</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projecao-body"></tbody>
+                        </table>
+                    </div>
+                    <div class="card">
+                        <h4 style="margin-bottom: 1rem;">Hábitos Semanais</h4>
+                        <div id="check-semanal" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                    </div>
                 </div>
             </div>
         </section>
