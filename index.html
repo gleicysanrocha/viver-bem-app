@@ -149,16 +149,22 @@
                         <div class="grid">
                             <div class="card">
                                 <h4 style="margin-bottom: 1rem;">Seu Cardápio</h4>
-                                <div id="nutri-tradicional" class="sub-tab-content"></div>
-                                <div id="nutri-lowcarb" class="sub-tab-content" style="display:none;"></div>
-                                <div id="nutri-proteico" class="sub-tab-content" style="display:none;"></div>
+                                <div id="tradicional" class="sub-tab-content">
+                                    <div id="nutri-tradicional"></div>
+                                </div>
+                                <div id="lowcarb" class="sub-tab-content" style="display:none;">
+                                    <div id="nutri-lowcarb"></div>
+                                </div>
+                                <div id="proteico" class="sub-tab-content" style="display:none;">
+                                    <div id="nutri-proteico"></div>
+                                </div>
                             </div>
                             <div class="card" style="background: var(--surface-alt);">
                                 <h4>Opções Dieta</h4>
                                 <div class="sub-tabs" style="margin-bottom: 1rem; display: flex; gap: 5px; flex-wrap: wrap;">
-                                    <button class="sub-tab-btn active btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('nutri-tradicional')">Tradicional</button>
-                                    <button class="sub-tab-btn btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('nutri-lowcarb')">Low Carb</button>
-                                    <button class="sub-tab-btn btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('nutri-proteico')">Proteica</button>
+                                    <button class="sub-tab-btn active btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('tradicional')">Tradicional</button>
+                                    <button class="sub-tab-btn btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('lowcarb')">Low Carb</button>
+                                    <button class="sub-tab-btn btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('proteico')">Proteica</button>
                                 </div>
                             </div>
                         </div>
