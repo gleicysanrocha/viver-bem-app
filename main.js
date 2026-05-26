@@ -2665,10 +2665,44 @@ window.selecionarDesafio = (id) => {
             if (setupNameInput) setupNameInput.value = data.nome || '';
             if (setupWeightInput) setupWeightInput.value = data.peso || '';
             if (setupTargetWeightInput) setupTargetWeightInput.value = data.objetivo_peso || '';
-            if (setupLevelSelect) setupLevelSelect.value = data.atividade || 'intermediario';
-            if (setupLocalSelect) setupLocalSelect.value = data.local_treino || 'casa';
+            
+            // Inicializar e sincronizar selects e cards premium
+            const initialLevel = data.atividade || 'intermediario';
+            const initialLocal = data.local_treino || 'casa';
+            
+            if (setupLevelSelect) setupLevelSelect.value = initialLevel;
+            if (setupLocalSelect) setupLocalSelect.value = initialLocal;
+            
+            window.selectSetupLevel(initialLevel);
+            window.selectSetupLocal(initialLocal);
         }
     }
+};
+
+window.selectSetupLevel = (value) => {
+    const select = document.getElementById('challenge-setup-level');
+    if (select) select.value = value;
+    
+    document.querySelectorAll('.level-option').forEach(el => {
+        if (el.getAttribute('data-value') === value) {
+            el.classList.add('active');
+        } else {
+            el.classList.remove('active');
+        }
+    });
+};
+
+window.selectSetupLocal = (value) => {
+    const select = document.getElementById('challenge-setup-local');
+    if (select) select.value = value;
+    
+    document.querySelectorAll('.local-option').forEach(el => {
+        if (el.getAttribute('data-value') === value) {
+            el.classList.add('active');
+        } else {
+            el.classList.remove('active');
+        }
+    });
 };
 
 window.salvarInscricaoDesafio = () => {
