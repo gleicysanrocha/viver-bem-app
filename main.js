@@ -388,6 +388,9 @@ window.navigate = (view) => {
     } else if (view === 'anamnese') {
         document.getElementById('view-anamnese').style.display = 'block';
         resetAnamnese();
+    } else if (view === 'desafios') {
+        document.getElementById('view-desafios').style.display = 'block';
+        renderDesafios();
     }
 
     // Sidebar Active State
@@ -2186,4 +2189,280 @@ window.salvarProgressoSemanal = () => {
     renderChart();
     updateAIFeedback();
     renderDashboard(); // Update dashboard with new weight
+};
+
+// ==========================================
+// --- 30-DAY CHALLENGES FEATURE LOGIC ---
+// ==========================================
+
+const DESAFIOS_DATA = {
+    seca: {
+        id: "seca",
+        title: "Desafio Seca 30 Dias",
+        desc: "Foco em queima calórica acelerada, HIIT diário e plano de déficit estratégico para definição rápida e aumento do fôlego.",
+        theme: "theme-seca",
+        badge: "METABÓLICO INTENSO",
+        tasks: [
+            "15 min de HIIT", "Caminhada de 30 min", "Zero refrigerantes hoje", "20 min de HIIT", "Beber 3 Litros de água", 
+            "Jantar super leve (sopa/salada)", "Alongamento ativo", "15 min de HIIT rápido", "Cortar açúcar refinado", "Caminhada rápida 40 min", 
+            "20 min de HIIT", "24h sem açúcar ou farinha", "Jantar proteico (ovo/frango)", "Alongamento de coluna", "20 min de HIIT intenso", 
+            "Caminhada rápida 45 min", "Beber 3.5 Litros de água", "25 min de HIIT", "Dia sem pão/glúten", "Jantar leve (grelhado)", 
+            "Descanso ativo (1h caminhada leve)", "25 min de HIIT forte", "Jantar low carb e sem comer após 20h", "Caminhada rápida 50 min", "30 min de HIIT completo", 
+            "Beber 4 Litros de água", "Treino funcional leve", "Jantar super leve", "Corrida/Caminhada de 5 km", "HIIT final (30 min nível Pro!)"
+        ]
+    },
+    legs: {
+        id: "legs",
+        title: "Coxas & Glúteos",
+        desc: "Foco em fortalecimento, tonificação e volume muscular de pernas e glúteos com técnicas de tensão constantes.",
+        theme: "theme-legs",
+        badge: "HIPERTROFIA & VOLUME",
+        tasks: [
+            "50 Agachamentos Livres", "30 Passadas/Afundos alternados", "20 Elevações Pélvicas", "30 min Caminhada", "60 Agachamentos Livres", 
+            "40 Passadas/Afundos alternados", "Alongamento de pernas", "70 Agachamentos Livres", "30 Elevações Pélvicas", "40 Passadas", 
+            "Caminhada rápida 30 min", "80 Agachamentos Livres", "45 Passadas/Afundos", "Alongamento quadríceps/posteriores", "90 Agachamentos Livres", 
+            "50 Passadas/Afundos", "40 Elevações Pélvicas", "Caminhada 45 min", "100 Agachamentos Livres", "60 Passadas/Afundos", 
+            "Alongamento glúteos e pernas", "110 Agachamentos", "65 Passadas/Afundos", "50 Elevações Pélvicas", "Caminhada rápida 45 min", 
+            "120 Agachamentos", "70 Passadas/Afundos", "60 Elevações Pélvicas", "Alongamento completo", "150 Agachamentos Livres (Desafio Final!)"
+        ]
+    },
+    core: {
+        id: "core",
+        title: "Barriga Chapada",
+        desc: "Excelente desafio para ativar o transverso do abdômen, afinar a linha de cintura e fortalecer a postura.",
+        theme: "theme-core",
+        badge: "DEFINIÇÃO & LOMBAR",
+        tasks: [
+            "30s Prancha + 20 Abdominais", "40s Prancha + 15 Elevações Perna", "30s Prancha Lateral (cada lado)", "30 min Caminhada", "45s Prancha + 25 Abdominais", 
+            "50s Prancha + 20 Elevações Perna", "Alongamento lombar/abdômen", "60s Prancha + 30 Abdominais", "40s Prancha Lateral (cada lado)", "60s Prancha + 25 Elevações Perna", 
+            "Caminhada rápida 30 min", "75s Prancha + 35 Abdominais", "80s Prancha + 30 Elevações Perna", "Alongamento da postura", "90s Prancha + 40 Abdominais", 
+            "50s Prancha Lateral (cada lado)", "100s Prancha + 35 Elevações Perna", "Caminhada rápida 40 min", "110s Prancha + 45 Abdominais", "120s Prancha (2 min diretos!)", 
+            "Alongamento lombar", "120s Prancha + 30 Elevações Perna", "60s Prancha Lateral (cada lado)", "130s Prancha + 50 Abdominais", "Caminhada 45 min", 
+            "140s Prancha + 40 Elevações Perna", "150s Prancha + 60 Abdominais", "70s Prancha Lateral (cada lado)", "Alongamento de alongamento", "180s Prancha (3 min seguidos!)"
+        ]
+    },
+    detox: {
+        id: "detox",
+        title: "Hábitos & Detox",
+        desc: "Limpe o organismo e relaxe a mente. Ideal para desinflamar, melhorar a pele, regular o sono e criar rotinas de sucesso.",
+        theme: "theme-detox",
+        badge: "BEM-ESTAR GLOBAL",
+        tasks: [
+            "Beber 3.5 Litros de água", "Dormir pelo menos 8 horas", "Sem alimentos ultraprocessados", "20 min Caminhada leve", "Anotar 3 coisas pelas quais é grato", 
+            "10 min Respiração Profunda", "Detox digital (sem celular à noite)", "Beber 3.5 Litros de água", "Jantar sem lactose/glúten", "Dormir pelo menos 8 horas", 
+            "24h sem açúcar refinado", "15 min Meditação guiada", "Planejar metas e cardápio semanal", "Alongamento relaxante à noite", "Beber 3.5 Litros de água", 
+            "Ler 15 a 30 páginas de livro", "Dia livre de farinhas brancas", "Dormir pelo menos 8.5 horas", "Chá de camomila/erva-doce", "15 min Respiração", 
+            "Caminhada ao ar livre", "Beber 4 Litros de água", "Dormir pelo menos 8 horas", "Zero redes sociais após as 20h", "Anotar 5 coisas pelas quais é grato", 
+            "20 min Meditação silenciosa", "Dia 100% Vegetariano", "Consumo de chá verde/hibisco", "Banho relaxante / autocuidado", "Dia 100% Limpo (Zero açúcar e zero telas à noite)"
+        ]
+    }
+};
+
+window.renderDesafios = () => {
+    const selectionView = document.getElementById('desafios-selection-view');
+    const activeView = document.getElementById('desafio-active-view');
+    
+    if (selectionView) selectionView.style.display = 'block';
+    if (activeView) activeView.style.display = 'none';
+
+    const grid = document.getElementById('desafios-grid');
+    if (!grid) return;
+
+    const data = Storage.getData() || {};
+    const progressData = data.desafios_progress || {};
+
+    grid.innerHTML = Object.values(DESAFIOS_DATA).map(desafio => {
+        const checkedDays = progressData[desafio.id] || Array(30).fill(false);
+        const completedDays = checkedDays.filter(d => d).length;
+        const percentage = Math.round((completedDays / 30) * 100);
+
+        return `
+            <div class="desafio-card ${desafio.theme}" onclick="selecionarDesafio('${desafio.id}')">
+                <div class="desafio-card-content">
+                    <div>
+                        <span class="badge" style="background: rgba(255,255,255,0.25); color: white; border: none; font-size: 0.75rem;">${desafio.badge}</span>
+                        <h3 class="desafio-title" style="margin-top: 1rem; color: white;">${desafio.title}</h3>
+                        <p class="desafio-desc">${desafio.desc}</p>
+                    </div>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: bold; margin-bottom: 5px;">
+                            <span>Progresso</span>
+                            <span>${percentage}% (${completedDays}/30 dias)</span>
+                        </div>
+                        <div class="progress-bar-container" style="background: rgba(255,255,255,0.25);">
+                            <div class="progress-bar-fill" style="width: ${percentage}%; background: white;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+};
+
+let currentActiveDesafioId = null;
+
+window.selecionarDesafio = (id) => {
+    currentActiveDesafioId = id;
+    const desafio = DESAFIOS_DATA[id];
+    if (!desafio) return;
+
+    const selectionView = document.getElementById('desafios-selection-view');
+    const activeView = document.getElementById('desafio-active-view');
+    
+    if (selectionView) selectionView.style.display = 'none';
+    if (activeView) activeView.style.display = 'block';
+
+    document.getElementById('active-desafio-title').innerText = desafio.title;
+    document.getElementById('active-desafio-desc').innerText = desafio.desc;
+    document.getElementById('active-desafio-badge').innerText = desafio.badge;
+
+    renderDesafioActiveDays();
+};
+
+window.voltarParaSelecaoDesafios = () => {
+    currentActiveDesafioId = null;
+    window.renderDesafios();
+};
+
+function renderDesafioActiveDays() {
+    const id = currentActiveDesafioId;
+    const desafio = DESAFIOS_DATA[id];
+    if (!desafio) return;
+
+    const data = Storage.getData() || {};
+    const progressData = data.desafios_progress || {};
+    const checkedDays = progressData[id] || Array(30).fill(false);
+
+    // Render Calendar Grid
+    const daysGrid = document.getElementById('desafio-days-grid');
+    if (daysGrid) {
+        daysGrid.innerHTML = desafio.tasks.map((task, index) => {
+            const isCompleted = checkedDays[index];
+            return `
+                <div class="desafio-day-box ${isCompleted ? 'completed' : ''}" onclick="toggleDesafioDay(${index})">
+                    <span class="desafio-day-number">Dia ${index + 1}</span>
+                    <span class="desafio-day-task">${task}</span>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Update Progress Data
+    const completedDays = checkedDays.filter(d => d).length;
+    const percentage = Math.round((completedDays / 30) * 100);
+
+    const percentEl = document.getElementById('active-desafio-percentage');
+    if (percentEl) percentEl.innerText = `${percentage}% (${completedDays}/30 dias)`;
+
+    const barEl = document.getElementById('active-desafio-bar');
+    if (barEl) barEl.style.width = `${percentage}%`;
+
+    // Show Certificate Option if 100% completed
+    const completedCard = document.getElementById('desafio-completed-card');
+    if (completedCard) {
+        completedCard.style.display = (completedDays === 30) ? 'block' : 'none';
+    }
+}
+
+window.toggleDesafioDay = (dayIndex) => {
+    const id = currentActiveDesafioId;
+    if (!id) return;
+
+    const data = Storage.getData() || {};
+    if (!data.desafios_progress) data.desafios_progress = {};
+    if (!data.desafios_progress[id]) data.desafios_progress[id] = Array(30).fill(false);
+
+    // Toggle
+    data.desafios_progress[id][dayIndex] = !data.desafios_progress[id][dayIndex];
+
+    // Save & Re-render
+    Storage.saveData(data);
+    renderDesafioActiveDays();
+};
+
+window.gerarCertificadoDesafio = () => {
+    const id = currentActiveDesafioId;
+    const desafio = DESAFIOS_DATA[id];
+    if (!desafio) return alert('Nenhum desafio ativo.');
+
+    const session = Storage.getSession();
+    const userName = session.email ? session.email.split('@')[0] : 'Guerreiro(a)';
+    const dataConclusao = new Date().toLocaleDateString('pt-BR');
+
+    const htmlContent = `
+        <div style="font-family: 'Outfit', 'Inter', sans-serif; border: 15px double #059669; padding: 4rem; width: 100%; max-width: 900px; margin: 0 auto; text-align: center; background: white; border-radius: 12px; position: relative; box-sizing: border-box;">
+            <!-- Decor Medallion -->
+            <div style="position: absolute; right: 40px; top: 40px; font-size: 5rem; opacity: 0.15; pointer-events: none;">🌿</div>
+            
+            <div style="color: #059669; font-size: 1.2rem; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 1.5rem;">Certificado de Conclusão</div>
+            
+            <h1 style="font-size: 2.8rem; color: #0f172a; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 2rem;">VIVER BEM</h1>
+            
+            <p style="font-size: 1.25rem; color: #475569; font-style: italic; line-height: 1.6; max-width: 600px; margin: 0 auto 2.5rem auto;">
+                Certificamos com muito orgulho e admiração que a(o) guerreira(o)
+            </p>
+            
+            <div style="font-size: 2.2rem; font-weight: 800; color: #0f172a; text-transform: capitalize; border-bottom: 2px solid #e2e8f0; display: inline-block; padding-bottom: 8px; min-width: 350px; margin-bottom: 2rem;">
+                ${userName}
+            </div>
+            
+            <p style="font-size: 1.2rem; color: #475569; line-height: 1.6; max-width: 600px; margin: 0 auto 3rem auto;">
+                concluiu com extrema disciplina e consistência de hábitos o desafio de 30 dias focado em saúde e bem-estar:
+                <br>
+                <strong style="color: #059669; font-size: 1.4rem; font-weight: 800; display: block; margin-top: 10px;">${desafio.title.toUpperCase()}</strong>
+            </p>
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 4rem; max-width: 700px; margin-left: auto; margin-right: auto; flex-wrap: wrap; gap: 2rem;">
+                <div style="text-align: left;">
+                    <div style="font-size: 0.9rem; color: #94a3b8; font-weight: bold; text-transform: uppercase;">Data de Conclusão</div>
+                    <div style="font-size: 1.1rem; color: #0f172a; font-weight: 700; margin-top: 5px;">${dataConclusao}</div>
+                </div>
+                
+                <div style="text-align: center; min-width: 150px;">
+                    <div style="font-size: 3rem; line-height: 1;">🏆</div>
+                    <div style="font-size: 0.8rem; color: #ff5e00; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-top: 8px;">100% Foco</div>
+                </div>
+                
+                <div style="text-align: right;">
+                    <div style="font-size: 0.9rem; color: #94a3b8; font-weight: bold; text-transform: uppercase;">Validação</div>
+                    <div style="font-size: 1.1rem; color: #059669; font-weight: 800; margin-top: 5px;">IA Personal Alpha</div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Print Overlay Container
+    const printContainer = document.createElement('div');
+    printContainer.className = 'print-section-overlay';
+    printContainer.style.background = 'white';
+    printContainer.innerHTML = htmlContent;
+    document.body.appendChild(printContainer);
+
+    // Style elements for landscape certificate
+    if (!document.querySelector('#print-certificate-style')) {
+        const style = document.createElement('style');
+        style.id = 'print-certificate-style';
+        style.innerHTML = `
+            @media print {
+                @page { margin: 0; size: landscape A4; }
+                body * { visibility: hidden; }
+                .print-section-overlay, .print-section-overlay * { visibility: visible; }
+                .print-section-overlay { 
+                    position: absolute; left: 0; top: 0; width: 100vw; min-height: 100vh; 
+                    background: white; z-index: 99999; display: flex; align-items: center; justify-content: center; 
+                    padding: 2cm; box-sizing: border-box;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+            if (document.body.contains(printContainer)) {
+                document.body.removeChild(printContainer);
+            }
+        }, 500);
+    }, 500);
 };

@@ -71,6 +71,9 @@
             <div class="nav-item" onclick="navigate('anamnese')">
                 <span>✨</span> Novo Plano
             </div>
+            <div class="nav-item" onclick="navigate('desafios')">
+                <span>🏆</span> Desafios
+            </div>
         </nav>
         
         <div class="nav-item" onclick="handleLogout()" style="color: var(--danger); margin-top: auto; border-top: 1px solid var(--border); padding-top: 1.5rem;">
@@ -91,6 +94,10 @@
         <div class="bottom-nav-item" onclick="navigate('anamnese')">
             <span style="font-size: 1.2rem;">✨</span>
             <span>Novo</span>
+        </div>
+        <div class="bottom-nav-item" onclick="navigate('desafios')">
+            <span style="font-size: 1.2rem;">🏆</span>
+            <span>Desafios</span>
         </div>
         <div class="bottom-nav-item" onclick="navigate('historico')">
             <span style="font-size: 1.2rem;">🕒</span>
@@ -209,6 +216,71 @@
         <!-- Histórico Section -->
         <section id="view-historico" class="view-section" style="display: none;">
             <div id="plan-history-list"></div>
+        </section>
+
+        <!-- Desafios Section -->
+        <section id="view-desafios" class="view-section" style="display: none;">
+            <!-- Grid de Seleção de Desafios -->
+            <div id="desafios-selection-view">
+                <header style="margin-bottom: 2.5rem; text-align: center;">
+                    <h2 style="font-size: 2.2rem; letter-spacing: -1.2px; color: var(--secondary);">🏆 Desafios 30 Dias</h2>
+                    <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0.5rem auto 0 auto;">Acelere seus resultados escolhendo um desafio prático focado em consistência e evolução diária.</p>
+                </header>
+                <div class="grid" id="desafios-grid">
+                    <!-- Cards de Desafios injetados dinamicamente via JS -->
+                </div>
+            </div>
+
+            <!-- Calendário e Painel do Desafio Selecionado -->
+            <div id="desafio-active-view" style="display: none;">
+                <button class="btn-outline" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px;" onclick="voltarParaSelecaoDesafios()">
+                    <span>⬅️</span> Voltar para Desafios
+                </button>
+                <div class="card" style="border-left: 4px solid var(--primary); margin-bottom: 1.5rem; background: linear-gradient(to bottom right, #fff, #f4fff9);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h3 id="active-desafio-title" style="font-size: 1.6rem; color: var(--secondary);">Nome do Desafio</h3>
+                            <p id="active-desafio-desc" style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">Descrição...</p>
+                        </div>
+                        <div>
+                            <span id="active-desafio-badge" class="badge" style="background: var(--primary); color: white; padding: 0.4rem 0.8rem; font-size: 0.85rem; border-radius: 20px;">30 DIAS</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Barra de Progresso -->
+                    <div style="margin-top: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: bold; margin-bottom: 8px; color: var(--secondary);">
+                            <span>Progresso do Desafio</span>
+                            <span id="active-desafio-percentage">0% (0/30)</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div id="active-desafio-bar" class="progress-bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid com os 30 Dias -->
+                <div class="card">
+                    <h4 style="margin-bottom: 1.5rem; color: var(--secondary); font-size: 1.1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.8rem;">
+                        📅 Clique nos dias completados para registrar suas conquistas
+                    </h4>
+                    <div class="desafio-calendar-grid" id="desafio-days-grid">
+                        <!-- Dias gerados via JS -->
+                    </div>
+                </div>
+
+                <!-- Certificado de Conclusão -->
+                <div id="desafio-completed-card" class="card" style="display: none; text-align: center; border: 2px dashed #2ecc71; background: #f0fff4; margin-top: 2rem; padding: 2.5rem; border-radius: 16px;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem; animation: pulse 2s infinite;">🏆</div>
+                    <h3 style="color: #27ae60; font-size: 2rem; font-weight: 800; letter-spacing: -1px;">Desafio Concluído!</h3>
+                    <p style="color: var(--secondary); font-size: 1.1rem; margin-top: 0.8rem; max-width: 550px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                        Incrível! Você provou sua disciplina e foco ao longo de 30 dias de muito empenho. Você merece celebrar essa grande conquista!
+                    </p>
+                    <button class="btn-primary" style="margin-top: 2rem; padding: 0.8rem 2.5rem; font-weight: 700; font-size: 1rem; background: #27ae60; border-color: #27ae60; box-shadow: 0 4px 10px rgba(39, 174, 96, 0.2);" onclick="gerarCertificadoDesafio()">
+                        🖨️ Emitir Meu Certificado
+                    </button>
+                </div>
+            </div>
         </section>
     </main>
 
