@@ -137,73 +137,103 @@
         <!-- Dynamic Content Section -->
         <section id="view-dynamic" class="view-section" style="display: none;">
             <div id="results">
-                <!-- Re-utilizando a estrutura de tabs mas com novo estilo global -->
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-                    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 0; flex: 1;">
-                        <button class="btn-outline tab-btn" onclick="switchTab('resumo')">🏠 Resumo</button>
-                        <button class="btn-outline tab-btn" onclick="switchTab('nutricao')">🍎 Dieta</button>
-                        <button class="btn-outline tab-btn" onclick="switchTab('treino')">💪 Treino</button>
-                        <button class="btn-outline tab-btn" onclick="switchTab('cronograma')">📅 Calendário</button>
+                <!-- Cabeçalho de Ações Rápidas -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; border-bottom: 2px solid var(--border); padding-bottom: 1.5rem;">
+                    <div>
+                        <h2 style="font-size: 2.2rem; letter-spacing: -1.2px; color: var(--secondary);">📋 Seu Protocolo IA Personal</h2>
+                        <p style="color: var(--text-muted); margin-top: 5px;">Alimentação, Treinos e Acompanhamento integrados para sua evolução.</p>
                     </div>
-                    <button class="btn-primary" style="padding: 0.8rem 1.5rem; font-size: 0.9rem; background: var(--secondary);" onclick="editCurrentPlan(); navigate('anamnese');">⚙️ Ajustar Plano</button>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-outline" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;" onclick="printPlanReport(Storage.getData(), true)">🖨️ Dossiê Completo (PDF)</button>
+                        <button class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem; background: var(--secondary);" onclick="editCurrentPlan()">⚙️ Ajustar Plano</button>
+                    </div>
                 </div>
 
-                <div id="resumo" class="tab-content">
-                    <div class="grid" id="resumo-grid-content"></div>
+                <!-- 1. RESUMO FÍSICO E METAS -->
+                <div style="margin-bottom: 3.5rem;">
+                    <h3 style="font-size: 1.4rem; color: var(--secondary); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                        <span>🏠</span> 1. Seu Status & Metas Corporal
+                    </h3>
+                    <div class="grid" id="resumo-grid-content" style="margin-top: 0;">
+                        <!-- Injetado dinamicamente -->
+                    </div>
                 </div>
 
-                <div id="nutricao" class="tab-content" style="display: none;">
-                    <div id="nutri-header" style="margin-bottom: 2rem;"></div>
-                    <div id="nutri-content">
-                        <!-- Conteúdo será injetado pelo main.js -->
-                        <div class="grid">
-                            <div class="card">
-                                <h3 style="margin-bottom: 1rem;">Seu Cardápio</h3>
-                                <div id="tradicional" class="sub-tab-content">
-                                    <div id="nutri-tradicional"></div>
-                                </div>
-                                <div id="lowcarb" class="sub-tab-content" style="display:none;">
-                                    <div id="nutri-lowcarb"></div>
-                                </div>
-                                <div id="proteico" class="sub-tab-content" style="display:none;">
-                                    <div id="nutri-proteico"></div>
-                                </div>
+                <!-- 2. CARDÁPIO ALIMENTAR -->
+                <div style="margin-bottom: 3.5rem;">
+                    <h3 style="font-size: 1.4rem; color: var(--secondary); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                        <span>🍎</span> 2. Planejamento Alimentar Otimizado
+                    </h3>
+                    <div class="card" style="margin-bottom: 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px;">
+                            <h4 id="nutri-h3-title" style="margin: 0; color: var(--secondary); font-size: 1.15rem;">Escolha sua variação diária de cardápio:</h4>
+                            <div class="sub-tabs" style="margin: 0;">
+                                <button class="sub-tab-btn active btn-outline" style="padding: 6px 12px; font-size: 0.8rem;" onclick="switchSubTab('tradicional')">Tradicional</button>
+                                <button class="sub-tab-btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;" onclick="switchSubTab('lowcarb')">Low Carb</button>
+                                <button class="sub-tab-btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;" onclick="switchSubTab('proteico')">Alta Proteína</button>
                             </div>
-                            <div class="card" style="background: var(--surface-alt);">
-                                <h4>Opções Dieta</h4>
-                                <div class="sub-tabs" style="margin-bottom: 1rem; display: flex; gap: 5px; flex-wrap: wrap;">
-                                    <button class="sub-tab-btn active btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('tradicional')">Tradicional</button>
-                                    <button class="sub-tab-btn btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('lowcarb')">Low Carb</button>
-                                    <button class="sub-tab-btn btn-outline" style="padding: 5px 10px; font-size:0.8rem;" onclick="switchSubTab('proteico')">Proteica</button>
-                                </div>
-                            </div>
+                        </div>
+
+                        <div id="alerta-alergias-container"></div>
+
+                        <!-- Variações do Menu -->
+                        <div id="tradicional" class="sub-tab-content">
+                            <div id="nutri-tradicional" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 0;"></div>
+                        </div>
+                        <div id="lowcarb" class="sub-tab-content" style="display:none;">
+                            <div id="nutri-lowcarb" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 0;"></div>
+                        </div>
+                        <div id="proteico" class="sub-tab-content" style="display:none;">
+                            <div id="nutri-proteico" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 0;"></div>
                         </div>
                     </div>
                 </div>
 
-                <div id="treino" class="tab-content" style="display: none;">
-                    <div id="treino-container"></div>
+                <!-- 3. ROTINA DE TREINOS PERIODIZADA -->
+                <div style="margin-bottom: 3.5rem;">
+                    <h3 style="font-size: 1.4rem; color: var(--secondary); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                        <span>💪</span> 3. Cronograma de Treinos Periodizado
+                    </h3>
+                    <div id="treino-container">
+                        <!-- Injetado dinamicamente -->
+                    </div>
                 </div>
 
-                <div id="cronograma" class="tab-content" style="display: none;">
-                    <div id="total-peso-perder" style="margin-bottom: 1rem;"></div>
-                    <div id="tabela-projecao-container" style="overflow-x: auto; margin-bottom: 2rem;">
-                        <table class="pro-table">
-                            <thead>
-                                <tr>
-                                    <th>Período</th>
-                                    <th>Data</th>
-                                    <th>Peso Previsto</th>
-                                    <th>Progresso</th>
-                                </tr>
-                            </thead>
-                            <tbody id="projecao-body"></tbody>
-                        </table>
+                <!-- 4. CRONOGRAMA & HÁBITOS DE EVOLUÇÃO -->
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="font-size: 1.4rem; color: var(--secondary); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 10px;">
+                        <span>📅</span> 4. Acompanhamento & Metas Semanais
+                    </h3>
+                    <div class="grid" style="margin-top: 0; align-items: start;">
+                        <!-- Projeção & Hábitos -->
+                        <div class="card" style="margin-bottom: 0; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <h4 style="color: var(--secondary); font-size: 1.1rem; margin-bottom: 1rem;">Projeção de Perda de Peso</h4>
+                                <div id="total-peso-perder" style="margin-bottom: 1.2rem; font-size: 0.95rem; line-height: 1.5;"></div>
+                                <div id="tabela-projecao-container" style="overflow-x: auto; max-height: 300px;">
+                                    <table class="pro-table" style="margin: 0; font-size: 0.85rem;">
+                                        <thead>
+                                            <tr>
+                                                <th>Período</th>
+                                                <th>Data</th>
+                                                <th>Peso Previsto</th>
+                                                <th>Progresso</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="projecao-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hábitos Diários -->
+                        <div class="card" style="margin-bottom: 0; height: 100%;">
+                            <h4 style="color: var(--secondary); font-size: 1.1rem; margin-bottom: 1.2rem;">🏆 Seus Hábitos Semanais</h4>
+                            <div id="check-semanal" style="display: flex; flex-direction: column; gap: 12px;"></div>
+                        </div>
                     </div>
-                    <div class="card">
-                        <h4 style="margin-bottom: 1rem;">Hábitos Semanais</h4>
-                        <div id="check-semanal" style="display: flex; flex-direction: column; gap: 8px;"></div>
-                    </div>
+                    <!-- Planilha de Registro de Peso -->
+                    <div id="planilha-acompanhamento-container" style="margin-top: 2.5rem;"></div>
                 </div>
             </div>
         </section>

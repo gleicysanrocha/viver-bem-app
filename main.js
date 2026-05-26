@@ -918,7 +918,6 @@ function exibirResultados(data) {
     }
 
     // Resetar abas e renderizar conteúdo detalhado
-    if (typeof switchTab === 'function') switchTab('resumo');
     if (typeof switchSubTab === 'function') switchSubTab('tradicional');
 
     renderNutri(metaCalorica, data);
@@ -1141,23 +1140,9 @@ function renderNutri(kcal, data) {
     const isGluten = alergiasRaw.includes('gluten') || alergiasRaw.includes('glúten') || alergiasRaw.includes('pão') || alergiasRaw.includes('trigo');
     const isVegan = alergiasRaw.includes('carne') || alergiasRaw.includes('ovo') || alergiasRaw.includes('frango') || alergiasRaw.includes('peixe') || alergiasRaw.includes('vegan');
 
-    // Inserir alerta de alergias e botão de imprimir
-    const nutriHead = document.querySelector('#nutricao');
-    if (nutriHead) {
-        // Garantir botão de impressão
-        if (!document.getElementById('btn-print-nutri')) {
-            const printBtn = document.createElement('button');
-            printBtn.id = 'btn-print-nutri';
-            printBtn.className = 'btn-outline';
-            printBtn.style = "float: right; font-size: 0.8rem; padding: 5px 10px;";
-            printBtn.innerHTML = "🖨️ Imprimir Cardápio";
-            printBtn.onclick = () => printSection('nutricao');
-            nutriHead.querySelector('h3').appendChild(printBtn);
-        }
-
-        const existingAlert = document.getElementById('alerta-alergias');
-        if (existingAlert) existingAlert.remove();
-
+    // Inserir alerta de alergias no contêiner dedicado
+    const alertContainer = document.getElementById('alerta-alergias-container');
+    if (alertContainer) {
         let alertsHtml = "";
 
         if (alergiasRaw) {
@@ -1174,13 +1159,7 @@ function renderNutri(kcal, data) {
             alertsHtml += `<div style="background: #e2e3e5; color: #383d41; padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem; border-left: 5px solid #d6d8db; font-size: 0.9rem;"><strong>⛔ Evitando:</strong> ${naoGostaRaw}. Os itens foram removidos ou substituídos.</div>`;
         }
 
-        if (alertsHtml) {
-            const alertContainer = document.createElement('div');
-            alertContainer.id = 'alerta-alergias';
-            alertContainer.innerHTML = alertsHtml;
-            const h3 = nutriHead.querySelector('h3');
-            h3.parentNode.insertBefore(alertContainer, h3.nextSibling);
-        }
+        alertContainer.innerHTML = alertsHtml;
     }
 
     // Aplicar adaptações
@@ -1698,7 +1677,7 @@ function renderCronograma(data, peso, ritmo) {
     }
 
     // Planilha de Acompanhamento Semanal
-    const acompanhamentoEl = document.getElementById('cronograma');
+    const acompanhamentoEl = document.getElementById('planilha-acompanhamento-container');
     if (acompanhamentoEl) {
         // Header e Botões de Impressão na área de Cronograma (Inserir no início se não houver)
         if (!document.getElementById('cronograma-actions')) {
