@@ -2831,7 +2831,7 @@ window.renderDesafioActiveDays = () => {
                                     </div>
                                     <button class="btn-outline" 
                                             style="padding: 4px 8px; font-size: 0.7rem; border-radius: 6px; display: flex; align-items: center; gap: 4px; border-color: rgba(245, 158, 11, 0.3); color: var(--accent); font-weight: bold; flex-shrink: 0;"
-                                            onclick="window.open('https://www.youtube.com/results?search_query=como+fazer+' + encodeURIComponent('${ex.name.replace(/'/g, "\\'")}') + (activeWorkoutType === 'academia' ? '+Leandro+Twin' : '+execucao+correta'), '_blank')">
+                                            onclick="window.open('https://www.youtube.com/results?search_query=como+fazer+' + encodeURIComponent('${ex.name.replace(/'/g, "\\'")}') + '${activeWorkoutType === 'academia' ? '+Leandro+Twin' : '+execucao+correta'}', '_blank')">
                                         🎬 Vídeo
                                     </button>
                                 </div>
