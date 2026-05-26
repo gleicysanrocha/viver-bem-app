@@ -2157,6 +2157,23 @@ window.salvarProgressoSemanal = () => {
 
     let data = Storage.getData();
     if (!data) return alert('Nenhum plano ativo para registrar peso.');
+
+    const hoje = new Date().toLocaleDateString('pt-BR');
+
+    if (!data.historico) data.historico = [];
+    data.historico.push({ data: hoje, peso: novoPeso });
+
+    Storage.updateUser(Storage.getSession(), data); // Save updated data for current user
+    fecharModalRegistro();
+    renderChart();
+    updateAIFeedback();
+    renderDashboard(); // Update dashboard with new weight
+};
+
+// ==========================================
+// --- 30-DAY CHALLENGES FEATURE LOGIC ---
+// ==========================================
+
 const DESAFIOS_DATA = {
     seca: {
         id: "seca",
