@@ -2623,7 +2623,6 @@ window.selecionarDesafio = (id) => {
     
     // Configurar opções padrão conforme o plano do usuário
     window.currentChallengeDietOption = 'tradicional';
-    window.currentChallengeWorkoutOption = data.local_treino === 'academia' ? 'academia' : 'casa';
 
     const selectionView = document.getElementById('desafios-selection-view');
     const activeView = document.getElementById('desafio-active-view');
@@ -2635,7 +2634,102 @@ window.selecionarDesafio = (id) => {
     document.getElementById('active-desafio-desc').innerText = desafio.desc;
     document.getElementById('active-desafio-badge').innerText = desafio.badge;
 
-    window.renderDesafioActiveDays();
+    // Verificar se o setup do desafio existe para este ID
+    const setupData = progressData[id + '_setup'];
+    const formContainer = document.getElementById('desafio-enrollment-form-container');
+    const dashboardContainer = document.getElementById('desafio-dashboard-container');
+    const btnReset = document.getElementById('btn-reset-desafio');
+
+    if (setupData) {
+        // Setup existe, mostra painel ativo
+        if (formContainer) formContainer.style.display = 'none';
+        if (dashboardContainer) dashboardContainer.style.display = 'block';
+        if (btnReset) btnReset.style.display = 'block';
+        
+        window.currentChallengeWorkoutOption = setupData.local || 'casa';
+        window.renderDesafioActiveDays();
+    } else {
+        // Setup NÃO existe, mostra ficha de preenchimento
+        if (dashboardContainer) dashboardContainer.style.display = 'none';
+        if (btnReset) btnReset.style.display = 'none';
+        if (formContainer) {
+            formContainer.style.display = 'block';
+            
+            // Pré-preencher campos padrões baseados no perfil se existirem
+            const setupNameInput = document.getElementById('challenge-setup-name');
+            const setupWeightInput = document.getElementById('challenge-setup-start-weight');
+            const setupTargetWeightInput = document.getElementById('challenge-setup-target-weight');
+            const setupLevelSelect = document.getElementById('challenge-setup-level');
+            const setupLocalSelect = document.getElementById('challenge-setup-local');
+            
+            if (setupNameInput) setupNameInput.value = data.nome || '';
+            if (setupWeightInput) setupWeightInput.value = data.peso || '';
+            if (setupTargetWeightInput) setupTargetWeightInput.value = data.objetivo_peso || '';
+            if (setupLevelSelect) setupLevelSelect.value = data.atividade || 'intermediario';
+            if (setupLocalSelect) setupLocalSelect.value = data.local_treino || 'casa';
+        }
+    }
+};
+
+window.salvarInscricaoDesafio = () => {
+    const id = window.currentActiveDesafioId;
+    if (!id) return;
+
+    const setupNameInput = document.getElementById('challenge-setup-name');
+    const setupWeightInput = document.getElementById('challenge-setup-start-weight');
+    const setupTargetWeightInput = document.getElementById('challenge-setup-target-weight');
+    const setupLevelSelect = document.getElementById('challenge-setup-level');
+    const setupLocalSelect = document.getElementById('challenge-setup-local');
+
+    const name = setupNameInput ? setupNameInput.value.trim() : 'Guerreiro';
+    const startWeight = setupWeightInput ? parseFloat(setupWeightInput.value) : 0;
+    const targetWeight = setupTargetWeightInput ? parseFloat(setupTargetWeightInput.value) : 0;
+    const level = setupLevelSelect ? setupLevelSelect.value : 'intermediario';
+    const local = setupLocalSelect ? setupLocalSelect.value : 'casa';
+
+    if (!name) return alert('Por favor, informe seu nome ou apelido.');
+    if (isNaN(startWeight) || startWeight <= 0) return alert('Por favor, informe um peso de partida válido.');
+    if (isNaN(targetWeight) || targetWeight <= 0) return alert('Por favor, informe um peso meta válido.');
+
+    const data = Storage.getData() || {};
+    if (!data.desafios_progress) data.desafios_progress = {};
+    
+    // Inicializar metadados de setup do desafio
+    data.desafios_progress[id + '_setup'] = {
+        name,
+        startWeight,
+        targetWeight,
+        level,
+        local,
+        dateStarted: new Date().toLocaleDateString('pt-BR')
+    };
+
+    // Inicializar grade de 30 dias vazia
+    data.desafios_progress[id] = Array(30).fill(false);
+
+    // Salvar e carregar tela do desafio
+    Storage.saveData(data);
+    
+    // Recarregar o desafio para entrar diretamente no painel ativo
+    window.selecionarDesafio(id);
+};
+
+window.reiniciarDesafio = () => {
+    const id = window.currentActiveDesafioId;
+    if (!id) return;
+
+    if (!confirm('Deseja realmente reiniciar este desafio? Isso apagará todo o seu progresso de 30 dias e a ficha de metas deste desafio!')) return;
+
+    const data = Storage.getData() || {};
+    if (data.desafios_progress) {
+        delete data.desafios_progress[id];
+        delete data.desafios_progress[id + '_setup'];
+    }
+
+    Storage.saveData(data);
+    
+    // Recarregar o desafio para abrir na ficha de preenchimento
+    window.selecionarDesafio(id);
 };
 
 window.voltarParaSelecaoDesafios = () => {
@@ -2690,7 +2784,30 @@ window.renderDesafioActiveDays = () => {
     const progressData = data.desafios_progress || {};
     const checkedDays = progressData[id] || Array(30).fill(false);
 
-    // 1. Renderizar Grade do Calendário (30 Dias)
+    // Renderizar Card de Metas da Inscrição (Ficha de Preenchimento)
+    const goalsCard = document.getElementById('challenge-goals-info-card');
+    const setupData = progressData[id + '_setup'];
+    if (goalsCard && setupData) {
+        goalsCard.innerHTML = `
+            <div style="background: rgba(0,0,0,0.02); padding: 10px 12px; border-radius: 8px; border-left: 3px solid var(--primary); text-align: left;">
+                <strong style="color: var(--primary); font-size: 0.7rem; text-transform: uppercase; display: block;">Peso Inicial</strong>
+                <span style="font-size: 1.1rem; color: var(--secondary); font-weight: 800; margin-top: 3px; display: block;">${setupData.startWeight.toFixed(1)} kg</span>
+            </div>
+            <div style="background: rgba(0,0,0,0.02); padding: 10px 12px; border-radius: 8px; border-left: 3px solid #f59e0b; text-align: left;">
+                <strong style="color: #f59e0b; font-size: 0.7rem; text-transform: uppercase; display: block;">Meta do Desafio</strong>
+                <span style="font-size: 1.1rem; color: var(--secondary); font-weight: 800; margin-top: 3px; display: block;">${setupData.targetWeight.toFixed(1)} kg</span>
+            </div>
+            <div style="background: rgba(0,0,0,0.02); padding: 10px 12px; border-radius: 8px; border-left: 3px solid var(--accent); text-align: left;">
+                <strong style="color: var(--accent); font-size: 0.7rem; text-transform: uppercase; display: block;">Nível Calibrado</strong>
+                <span style="font-size: 0.95rem; color: var(--secondary); font-weight: 800; margin-top: 5px; display: block; text-transform: capitalize;">${setupData.level}</span>
+            </div>
+            <div style="background: rgba(0,0,0,0.02); padding: 10px 12px; border-radius: 8px; border-left: 3px solid #3b82f6; text-align: left;">
+                <strong style="color: #3b82f6; font-size: 0.7rem; text-transform: uppercase; display: block;">Data de Início</strong>
+                <span style="font-size: 0.95rem; color: var(--secondary); font-weight: 800; margin-top: 5px; display: block;">${setupData.dateStarted}</span>
+            </div>
+        `;
+    }
+
     const daysGrid = document.getElementById('desafio-days-grid');
     if (daysGrid) {
         daysGrid.innerHTML = Array(30).fill(null).map((_, index) => {
