@@ -2157,23 +2157,6 @@ window.salvarProgressoSemanal = () => {
 
     let data = Storage.getData();
     if (!data) return alert('Nenhum plano ativo para registrar peso.');
-
-    const hoje = new Date().toLocaleDateString('pt-BR');
-
-    if (!data.historico) data.historico = [];
-    data.historico.push({ data: hoje, peso: novoPeso });
-
-    Storage.updateUser(Storage.getSession(), data); // Save updated data for current user
-    fecharModalRegistro();
-    renderChart();
-    updateAIFeedback();
-    renderDashboard(); // Update dashboard with new weight
-};
-
-// ==========================================
-// --- 30-DAY CHALLENGES FEATURE LOGIC ---
-// ==========================================
-
 const DESAFIOS_DATA = {
     seca: {
         id: "seca",
@@ -2181,6 +2164,17 @@ const DESAFIOS_DATA = {
         desc: "Foco em queima calórica acelerada, HIIT diário e plano de déficit estratégico para definição rápida e aumento do fôlego.",
         theme: "theme-seca",
         badge: "METABÓLICO INTENSO",
+        diet: [
+            { r: "Café da Manhã", c: "2 Ovos mexidos com espinafre + Café preto sem açúcar" },
+            { r: "Almoço", c: "120g de Frango grelhado + Mix de legumes cozidos + Salada verde" },
+            { r: "Lanche", c: "30g de Amêndoas ou Castanhas + Chá verde gelado" },
+            { r: "Jantar", c: "Sopa leve de abóbora com frango desfiado ou Omelete de claras" }
+        ],
+        workout: [
+            { ex: "HIIT Queima Rápida", c: "20 min alternando 40s ativo / 20s descanso" },
+            { ex: "Polichinelos / Burpees", c: "3 séries de 45 segundos para acelerar batimentos" },
+            { ex: "Corrida/Caminhada Rápida", c: "30 a 45 min mantendo ritmo constante" }
+        ],
         tasks: [
             "15 min de HIIT", "Caminhada de 30 min", "Zero refrigerantes hoje", "20 min de HIIT", "Beber 3 Litros de água", 
             "Jantar super leve (sopa/salada)", "Alongamento ativo", "15 min de HIIT rápido", "Cortar açúcar refinado", "Caminhada rápida 40 min", 
@@ -2193,9 +2187,20 @@ const DESAFIOS_DATA = {
     legs: {
         id: "legs",
         title: "Coxas & Glúteos",
-        desc: "Foco em fortalecimento, tonificação e volume muscular de pernas e glúteos com técnicas de tensão constantes.",
+        desc: "Foco em fortalecimento, tonificação e volume muscular de pernas e glúteos com técnicas de tension constantes.",
         theme: "theme-legs",
         badge: "HIPERTROFIA & VOLUME",
+        diet: [
+            { r: "Café da Manhã", c: "Panqueca de banana (1 banana + 2 ovos + 30g de aveia)" },
+            { r: "Almoço", c: "150g de Carne moída magra + 120g de Batata Doce + Brócolis" },
+            { r: "Lanche", c: "Iogurte natural proteico + 1 maçã + 15g de sementes de abóbora" },
+            { r: "Jantar", c: "150g de Filé de Peixe + 100g de Mandioca cozida + Salada de folhas" }
+        ],
+        workout: [
+            { ex: "Agachamento Goblet", c: "4 séries de 12 a 15 repetições focando na amplitude" },
+            { ex: "Afundo / Passada", c: "3 séries de 10 repetições por perna (passo longo)" },
+            { ex: "Elevação Pélvica", c: "4 séries de 15 repetições com contração no topo de 2s" }
+        ],
         tasks: [
             "50 Agachamentos Livres", "30 Passadas/Afundos alternados", "20 Elevações Pélvicas", "30 min Caminhada", "60 Agachamentos Livres", 
             "40 Passadas/Afundos alternados", "Alongamento de pernas", "70 Agachamentos Livres", "30 Elevações Pélvicas", "40 Passadas", 
@@ -2211,6 +2216,17 @@ const DESAFIOS_DATA = {
         desc: "Excelente desafio para ativar o transverso do abdômen, afinar a linha de cintura e fortalecer a postura.",
         theme: "theme-core",
         badge: "DEFINIÇÃO & LOMBAR",
+        diet: [
+            { r: "Café da Manhã", c: "Omelete de 3 claras + Mamão picado com chia + Chá de Hibisco" },
+            { r: "Almoço", c: "120g de Filé de Tilápia assado + 150g de Abobrinha refogada" },
+            { r: "Lanche", c: "Smoothie Verde (Couve, abacaxi, chia e água de coco) + 30g ricota" },
+            { r: "Jantar", c: "Omelete de peito de peru com tomate + Salada de rúcula" }
+        ],
+        workout: [
+            { ex: "Prancha Frontal Isométrica", c: "4 séries de 45 a 60 segundos com core contraído" },
+            { ex: "Abdominal Curto (Supra)", c: "3 séries de 25 repetições focando na respiração" },
+            { ex: "Abdominal Infra (Pernas)", c: "3 séries de 15 repetições (elevação controlada)" }
+        ],
         tasks: [
             "30s Prancha + 20 Abdominais", "40s Prancha + 15 Elevações Perna", "30s Prancha Lateral (cada lado)", "30 min Caminhada", "45s Prancha + 25 Abdominais", 
             "50s Prancha + 20 Elevações Perna", "Alongamento lombar/abdômen", "60s Prancha + 30 Abdominais", "40s Prancha Lateral (cada lado)", "60s Prancha + 25 Elevações Perna", 
@@ -2226,6 +2242,17 @@ const DESAFIOS_DATA = {
         desc: "Limpe o organismo e relaxe a mente. Ideal para desinflamar, melhorar a pele, regular o sono e criar rotinas de sucesso.",
         theme: "theme-detox",
         badge: "BEM-ESTAR GLOBAL",
+        diet: [
+            { r: "Café da Manhã", c: "Suco Verde Detox (Limão, couve, maçã, gengibre) + 2 Ovos cozidos" },
+            { r: "Almoço", c: "120g de Peito de Frango cozido + Mix de folhas verdes com limão e chia" },
+            { r: "Lanche", c: "1 tangerina ou laranja + 20g de sementes de girassol" },
+            { r: "Jantar", c: "120g de Pescada cozida + Abóbora cozida no vapor + Chá digestivo" }
+        ],
+        workout: [
+            { ex: "Alongamento Completo", c: "15 min liberando pontos de tensão do corpo todo" },
+            { ex: "Caminhada na Natureza", c: "30 min focando na respiração nasal e postura" },
+            { ex: "Mindfulness / Respiração", c: "10 min de respiração profunda (inspira 4s, segura 4s, expira 4s)" }
+        ],
         tasks: [
             "Beber 3.5 Litros de água", "Dormir pelo menos 8 horas", "Sem alimentos ultraprocessados", "20 min Caminhada leve", "Anotar 3 coisas pelas quais é grato", 
             "10 min Respiração Profunda", "Detox digital (sem celular à noite)", "Beber 3.5 Litros de água", "Jantar sem lactose/glúten", "Dormir pelo menos 8 horas", 
@@ -2311,6 +2338,28 @@ function renderDesafioActiveDays() {
     const data = Storage.getData() || {};
     const progressData = data.desafios_progress || {};
     const checkedDays = progressData[id] || Array(30).fill(false);
+
+    // Render Challenge Diet
+    const dietContainer = document.getElementById('active-desafio-diet-content');
+    if (dietContainer && desafio.diet) {
+        dietContainer.innerHTML = desafio.diet.map(item => `
+            <div style="background: rgba(0,0,0,0.02); padding: 10px 12px; border-radius: 8px; border-left: 3px solid var(--primary);">
+                <strong style="color: var(--primary); font-size: 0.75rem; text-transform: uppercase; display: block;">${item.r}</strong>
+                <span style="font-size: 0.9rem; color: var(--text-main); font-weight: 600; margin-top: 3px; display: block;">${item.c}</span>
+            </div>
+        `).join('');
+    }
+
+    // Render Challenge Exercises
+    const workoutContainer = document.getElementById('active-desafio-workout-content');
+    if (workoutContainer && desafio.workout) {
+        workoutContainer.innerHTML = desafio.workout.map(item => `
+            <div style="background: rgba(0,0,0,0.02); padding: 10px 12px; border-radius: 8px; border-left: 3px solid var(--accent);">
+                <strong style="color: var(--accent); font-size: 0.8rem; display: block;">${item.ex}</strong>
+                <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 3px; display: block;">${item.c}</span>
+            </div>
+        `).join('');
+    }
 
     // Render Calendar Grid
     const daysGrid = document.getElementById('desafio-days-grid');
