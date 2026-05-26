@@ -2280,88 +2280,6 @@ const DESAFIOS_DATA = {
         ]
     }
 };
-const VIDEO_MAP = {
-    // SECA - CASA
-    "Polichinelos rápidos": "https://www.youtube.com/watch?v=UqN9NleYf58",
-    "Burpees explosivos": "https://www.youtube.com/watch?v=2K_A2_2h_P8",
-    "Flexões de braço": "https://www.youtube.com/watch?v=0k1L2b49B90",
-    "Agachamento com salto": "https://www.youtube.com/watch?v=I9uK1aK22pY",
-    "Mountain climbers": "https://www.youtube.com/watch?v=G6R0cZ_4L3w",
-    "Abdominal bicicleta": "https://www.youtube.com/watch?v=tD92Wf3bLp8",
-    "Corrida estacionária de joelhos altos": "https://www.youtube.com/watch?v=sKqP4n-1_pE",
-    "Prancha dinâmica (sobe/desce)": "https://www.youtube.com/watch?v=Tq_Yc0lU09A",
-
-    // SECA - ACADEMIA
-    "Esteira rápida com inclinação": "https://www.youtube.com/watch?v=P21M9KkG0kY",
-    "Thrusters com halteres": "https://www.youtube.com/watch?v=T_e4eB3yPj4",
-    "Slams com Medicine Ball": "https://www.youtube.com/watch?v=0LzM0fX0X38",
-    "Kettlebell swings explosivos": "https://www.youtube.com/watch?v=s8YyP9f109I",
-    "Saltos sobre a caixa (Box Jumps)": "https://www.youtube.com/watch?v=mC1i_e5R17E",
-    "Remo seco (Rowing Machine)": "https://www.youtube.com/watch?v=DsbHk2X5v2k",
-    "Remada alta no cabo + agachamento": "https://www.youtube.com/watch?v=o04_72bNl5I",
-    "Passadas com halteres no corredor": "https://www.youtube.com/watch?v=y2D2U-f5c2E",
-
-    // LEGS - CASA
-    "Agachamentos livres lentos (técnica constante)": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Afundos/Passadas alternadas": "https://www.youtube.com/watch?v=y2D2U-f5c2E",
-    "Elevações pélvicas deitados": "https://www.youtube.com/watch?v=FmHwsSihL_o",
-    "Agachamento sumô sustentado no fundo": "https://www.youtube.com/watch?v=33K1625tHnI",
-    "Donkey kicks (quatro apoios)": "https://www.youtube.com/watch?v=0bT4m-97m18",
-    "Agachamento búlgaro na cadeira": "https://www.youtube.com/watch?v=LqU4s_kU7zQ",
-    "Panturrilhas em pé na escada": "https://www.youtube.com/watch?v=8Vq0w2P3yLw",
-    "Wall Sit (isometria na parede)": "https://www.youtube.com/watch?v=y1mE7M2Z3yE",
-
-    // LEGS - ACADEMIA
-    "Agachamento livre com barra olímpica": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Leg Press 45º (amplitude total)": "https://www.youtube.com/watch?v=cW_5G8Dq0lY",
-    "Cadeira extensora (com pico de contração)": "https://www.youtube.com/watch?v=GkM3VfN-HCo",
-    "Mesa flexora deitados": "https://www.youtube.com/watch?v=q6rK23d06f0",
-    "Hip Thrust (Elevação pélvica pesada com barra)": "https://www.youtube.com/watch?v=FmHwsSihL_o",
-    "Smith Machine agachamentos com pés juntos": "https://www.youtube.com/watch?v=eP9N2X0X-lY",
-    "Stiff com halteres": "https://www.youtube.com/watch?v=t5JvD8fPuhw",
-    "Panturrilhas sentado na máquina": "https://www.youtube.com/watch?v=8Vq0w2P3yLw",
-
-    // CORE - CASA
-    "Prancha frontal isométrica": "https://www.youtube.com/watch?v=2t2k6WwQ2xM",
-    "Abdominais curtos (supra)": "https://www.youtube.com/watch?v=0zM_81rT8P0",
-    "Abdominais infra (elevação de pernas)": "https://www.youtube.com/watch?v=5zM12U2T3xM",
-    "Prancha lateral (cada lado)": "https://www.youtube.com/watch?v=W_79c-p2fTY",
-    "Superman estático (lombar)": "https://www.youtube.com/watch?v=0LzM0fX0X38",
-    "Bicycle crunches intensos": "https://www.youtube.com/watch?v=tD92Wf3bLp8",
-    "Abdominal canivete": "https://www.youtube.com/watch?v=5zM12U2T3xM",
-    "Prancha com rotação de quadril": "https://www.youtube.com/watch?v=Tq_Yc0lU09A",
-
-    // CORE - ACADEMIA
-    "Weighted Planks (Prancha com anilha nas costas)": "https://www.youtube.com/watch?v=2t2k6WwQ2xM",
-    "Hanging Leg Raises (Elevação de pernas na barra fixa)": "https://www.youtube.com/watch?v=5zM12U2T3xM",
-    "Woodchops no cabo alto": "https://www.youtube.com/watch?v=o04_72bNl5I",
-    "Abdominal na Polia alta (Crunches com cabo)": "https://www.youtube.com/watch?v=0zM_81rT8P0",
-    "Abdominal na cadeira romana inclinada com carga": "https://www.youtube.com/watch?v=0zM_81rT8P0",
-    "Ab Wheel rollouts (rodinha abdominal)": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Prancha lateral no banco inclinado": "https://www.youtube.com/watch?v=W_79c-p2fTY",
-    "Extensão lombar no banco romano": "https://www.youtube.com/watch?v=0LzM0fX0X38",
-
-    // DETOX - CASA
-    "Alongamento profundo de coluna e pescoço": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Saudações ao Sol (Yoga)": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Caminhada leve respiratória ao ar livre": "https://www.youtube.com/watch?v=P21M9KkG0kY",
-    "Exercícios de mobilidade de quadril": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Exercícios de respiração controlada (4-4-4)": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Alongamento de posteriores de coxas": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Postura da Criança (Child's Pose) para descompressão": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Mobilidade torácica de joelhos": "https://www.youtube.com/watch?v=R3LpL611mBY",
-
-    // DETOX - ACADEMIA
-    "Caminhada rápida em esteira plana (LISS)": "https://www.youtube.com/watch?v=P21M9KkG0kY",
-    "Pedalada leve na bicicleta ergométrica": "https://www.youtube.com/watch?v=P21M9KkG0kY",
-    "Alongamentos usando espaldar da academia": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Uso de rolo de liberação miofascial (foam roller)": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Exercícios suaves de rotação de ombros na polia leve": "https://www.youtube.com/watch?v=o04_72bNl5I",
-    "Caminhada em ritmo LISS no elíptico": "https://www.youtube.com/watch?v=P21M9KkG0kY",
-    "Alongamentos de panturrilha e quadríceps suspensos": "https://www.youtube.com/watch?v=R3LpL611mBY",
-    "Sessão de relaxamento na sala de alongamentos": "https://www.youtube.com/watch?v=R3LpL611mBY"
-};
-
 // --- ALGORITHMIC GENERATORS FOR PREMIUM PROGRESSIVE CHALLENGES ---
 
 window.generateDailyDiet = (challengeId, day, option) => {
@@ -2913,7 +2831,7 @@ window.renderDesafioActiveDays = () => {
                                     </div>
                                     <button class="btn-outline" 
                                             style="padding: 4px 8px; font-size: 0.7rem; border-radius: 6px; display: flex; align-items: center; gap: 4px; border-color: rgba(245, 158, 11, 0.3); color: var(--accent); font-weight: bold; flex-shrink: 0;"
-                                            onclick="window.open(VIDEO_MAP['${ex.name.replace(/'/g, "\\'")}'] || 'https://www.youtube.com/results?search_query=como+fazer+' + encodeURIComponent('${ex.name.replace(/'/g, "\\'")}'), '_blank')">
+                                            onclick="window.open('https://www.youtube.com/results?search_query=como+fazer+' + encodeURIComponent('${ex.name.replace(/'/g, "\\'")}') + (activeWorkoutType === 'academia' ? '+Leandro+Twin' : '+execucao+correta'), '_blank')">
                                         🎬 Vídeo
                                     </button>
                                 </div>
