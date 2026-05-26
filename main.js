@@ -2820,14 +2820,21 @@ window.renderDesafioActiveDays = () => {
                         <!-- Lista de Exercícios -->
                         <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
                             ${exercises.map((ex, idx) => `
-                                <div style="background: white; padding: 12px; border-radius: 10px; border-left: 4px solid var(--accent); box-shadow: var(--shadow-sm); display: flex; gap: 10px; align-items: center;">
-                                    <div style="background: rgba(245, 158, 11, 0.1); color: var(--accent); font-weight: 800; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;">
-                                        ${idx + 1}
+                                <div style="background: white; padding: 12px; border-radius: 10px; border-left: 4px solid var(--accent); box-shadow: var(--shadow-sm); display: flex; gap: 10px; align-items: center; justify-content: space-between;">
+                                    <div style="display: flex; gap: 10px; align-items: center;">
+                                        <div style="background: rgba(245, 158, 11, 0.1); color: var(--accent); font-weight: 800; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;">
+                                            ${idx + 1}
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 800; font-size: 0.88rem; color: var(--secondary);">${ex.name}</div>
+                                            <div style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600; margin-top: 2px;">${ex.desc}</div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <div style="font-weight: 800; font-size: 0.88rem; color: var(--secondary);">${ex.name}</div>
-                                        <div style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600; margin-top: 2px;">${ex.desc}</div>
-                                    </div>
+                                    <button class="btn-outline" 
+                                            style="padding: 4px 8px; font-size: 0.7rem; border-radius: 6px; display: flex; align-items: center; gap: 4px; border-color: rgba(245, 158, 11, 0.3); color: var(--accent); font-weight: bold; flex-shrink: 0;"
+                                            onclick="window.open('https://www.youtube.com/results?search_query=como+fazer+' + encodeURIComponent('${ex.name.replace(/'/g, "\\'")}'), '_blank')">
+                                        🎬 Vídeo
+                                    </button>
                                 </div>
                             `).join('')}
                         </div>
