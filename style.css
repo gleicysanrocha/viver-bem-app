@@ -645,3 +645,56 @@ button {
   50% { transform: scale(1.02); }
   100% { transform: scale(1); }
 }
+
+/* Premium Selected Day Styles */
+.desafio-day-box.selected {
+  background: white;
+  border: 2px solid var(--primary) !important;
+  box-shadow: 0 0 18px rgba(16, 185, 129, 0.4) !important;
+  transform: translateY(-4px) scale(1.04);
+  z-index: 10;
+}
+
+.desafio-day-box.completed.selected {
+  border-color: #2ecc71 !important;
+  box-shadow: 0 0 18px rgba(46, 204, 113, 0.4) !important;
+}
+
+.intensity-badge {
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.intensity-flame {
+  display: inline-block;
+  animation: flamePulse 1.2s infinite alternate;
+}
+
+@keyframes flamePulse {
+  0% { transform: scale(1); filter: drop-shadow(0 0 1px #f97316); }
+  100% { transform: scale(1.2); filter: drop-shadow(0 0 4px #ef4444); }
+}
+
+.selected-day-details-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  box-shadow: var(--shadow-lg);
+  margin-top: 2.5rem;
+  animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

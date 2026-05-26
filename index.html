@@ -289,38 +289,18 @@
                     </div>
                 </div>
 
-                <!-- Protocolo de Alimentação & Treino do Desafio -->
-                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; margin-top: 0;">
-                    <!-- Cardápio do Desafio -->
-                    <div class="card" style="margin-bottom: 0;">
-                        <h4 style="color: var(--secondary); font-size: 1.15rem; margin-bottom: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.6rem; display: flex; align-items: center; gap: 8px;">
-                            <span>🥗</span> Alimentação do Desafio
-                        </h4>
-                        <div id="active-desafio-diet-content" style="display: flex; flex-direction: column; gap: 10px;">
-                            <!-- Injetado via JS -->
-                        </div>
-                    </div>
-
-                    <!-- Exercícios Recomendados do Desafio -->
-                    <div class="card" style="margin-bottom: 0;">
-                        <h4 style="color: var(--secondary); font-size: 1.15rem; margin-bottom: 1.2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.6rem; display: flex; align-items: center; gap: 8px;">
-                            <span>🏋️</span> Guia de Exercícios
-                        </h4>
-                        <div id="active-desafio-workout-content" style="display: flex; flex-direction: column; gap: 10px;">
-                            <!-- Injetado via JS -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Grid com os 30 Dias -->
+                <!-- Grid com os 30 Dias (Calendário de Seleção) -->
                 <div class="card">
                     <h4 style="margin-bottom: 1.5rem; color: var(--secondary); font-size: 1.1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.8rem;">
-                        📅 Clique nos dias completados para registrar suas conquistas
+                        📅 Clique em um dia para planejar sua dieta e treinos correspondentes
                     </h4>
                     <div class="desafio-calendar-grid" id="desafio-days-grid">
                         <!-- Dias gerados via JS -->
                     </div>
                 </div>
+
+                <!-- Painel de Detalhes Dinâmicos do Dia Selecionado -->
+                <div id="active-desafio-day-details-container"></div>
 
                 <!-- Certificado de Conclusão -->
                 <div id="desafio-completed-card" class="card" style="display: none; text-align: center; border: 2px dashed #2ecc71; background: #f0fff4; margin-top: 2rem; padding: 2.5rem; border-radius: 16px;">

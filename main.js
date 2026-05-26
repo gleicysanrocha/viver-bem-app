@@ -2281,6 +2281,293 @@ const DESAFIOS_DATA = {
     }
 };
 
+// --- ALGORITHMIC GENERATORS FOR PREMIUM PROGRESSIVE CHALLENGES ---
+
+window.generateDailyDiet = (challengeId, day, option) => {
+    const alimentos = {
+        seca: {
+            cafes: [
+                "2 Ovos mexidos com espinafre + Café preto sem açúcar",
+                "Omelete de 3 claras com tomate e manjericão + Chá verde gelado",
+                "1 Fatia de pão integral de fermentação natural tostado com meio abacate amassado",
+                "Crepioca leve (1 ovo + 1 colher de goma de tapioca) recheada com queijo cottage",
+                "Mamão papaia com 1 colher de sementes de chia + Café expresso puro"
+            ],
+            almocos: [
+                "120g de Peito de frango grelhado + Mix de abobrinha, berinjela e cenoura no vapor",
+                "130g de Filé de tilápia grelhado + 3 colheres de sopa de purê de mandioquinha + Salada de rúcula",
+                "120g de Patinho moído + Espaguete de abobrinha ao molho de tomate caseiro",
+                "Salpicão fit (frango desfiado, cenoura ralada, iogurte natural desnatado, milho e maçã verde)",
+                "Omelete de espinafre com 130g de lombo de porco magro grelhado + Brócolis refogados"
+            ],
+            lanches: [
+                "30g de Amêndoas ou Castanhas de caju + Chá de hibisco com limão",
+                "Iogurte natural desnatado com 5 morangos fatiados",
+                "1 Maçã com 1 colher de sobremesa de pasta de amendoim integral",
+                "2 Torradas de arroz integral com creme de ricota light",
+                "Smoothie termogênico (200ml de água de coco + 1 fatia de abacaxi + hortelã + gengibre)"
+            ],
+            jantares: [
+                "Sopa leve de abóbora cabotiá com frango desfiado e alho-poró",
+                "Omelete de 3 claras e 1 gema com cogumelos Paris salteados + Salada de alface e tomate",
+                "120g de Filé de pescada assada com alecrim e azeite + Vagem refogada",
+                "Caldinho de legumes com peito de frango desfiado e raspas de gengibre",
+                "120g de Peito de frango em cubos com brócolis e cebola roxa grelhada"
+            ]
+        },
+        legs: {
+            cafes: [
+                "Panqueca de banana (1 banana amassada + 2 ovos + 30g de aveia em flocos + canela)",
+                "3 Ovos mexidos + 2 fatias de pão de forma integral tostados + Café com leite desnatado",
+                "Mingau de aveia proteico (200ml de leite desnatado + 40g de aveia + 1 scoop de Whey de baunilha)",
+                "Vitamina hipertrófica (1 copo de leite + 1 banana inteira + 2 colheres de aveia + 1 colher de pasta de amendoim)",
+                "Tapioca recheada com 3 ovos mexidos e queijo minas frescal light + Café puro"
+            ],
+            almocos: [
+                "150g de Carne moída magra (patinho) + 120g de batata doce assada + brócolis no vapor",
+                "150g de Filé de frango grelhado + 150g de arroz integral + 1 concha de feijão preto + Salada de folhas",
+                "150g de Filé de salmão grelhado + 120g de mandioca cozida + aspargos salteados",
+                "150g de Iscas de filé mignon com cebola + 150g de batata baroa assada + cenoura ralada",
+                "150g de Sobrecoxa de frango assada (sem pele) + 150g de arroz de brócolis + 100g de abóbora cozida"
+            ],
+            lanches: [
+                "Iogurte natural proteico com 30g de aveia e 1 banana picada",
+                "Sanduíche natural (2 fatias de pão integral + 80g de frango desfiado com creme de ricota)",
+                "2 Ovos cozidos inteiros + 1 fatia de melão doce",
+                "Salada de frutas caprichada (maçã, banana, mamão) salpicada com 1 colher de granola sem açúcar",
+                "Whey protein batido com 200ml de leite vegetal de amêndoas + 10 morangos congelados"
+            ],
+            jantares: [
+                "150g de Filé de peixe assado + 100g de batata doce cozida + salada verde com azeite de oliva",
+                "Omelete de 3 ovos inteiros recheado com espinafre e tomate cereja + 2 fatias de abacaxi de sobremesa",
+                "150g de Peito de frango grelhado + Purê de abóbora caseiro (120g) + vagem cozida",
+                "150g de Patinho moído com chuchu e cenoura cozidos + Salada de rúcula com tomate",
+                "150g de Filé de tilápia na chapa + 100g de purê de batata inglesa feito com leite desnatado"
+            ]
+        },
+        core: {
+            cafes: [
+                "Omelete de 3 claras com espinafre + 1 fatia de mamão com sementes de chia + Chá de hibisco",
+                "Suco verde detox (1 folha de couve, limão, gengibre) + 2 ovos cozidos salpicados com cúrcuma",
+                "Iogurte grego zero açúcar com punhado de mirtilos e 1 colher de sementes de linhaça dourada",
+                "1 Fatia de pão integral 100% grãos com queijo cottage + Chá de camomila morno",
+                "Crepioca de claras (2 claras + 1 colher de tapioca) com tomate seco fit e rúcula"
+            ],
+            almocos: [
+                "120g de Filé de tilápia assado + 150g de abobrinha refogada ao alho + Salada de alface roxa",
+                "120g de Peito de frango cozido desfiado + 100g de purê de abóbora + couve salteada",
+                "120g de Filé de pescada grelhado + Mix de folhas verdes + Tomate + Vinagre de maçã e azeite",
+                "120g de Peito de peru grelhado + 3 colheres de arroz de couve-flor + aspargos frescos no vapor",
+                "Omelete de forno (3 claras + legumes variados como tomate, cebola e espinafre) + Salada de brotos"
+            ],
+            lanches: [
+                "Smoothie Verde Pleno (Couve, abacaxi, chia e água de coco) + 30g de queijo ricota light",
+                "Gelatina de ágar-ágar caseira de uva sem açúcar + 10 castanhas de caju sem sal",
+                "1 Xícara de chá verde gelado + 3 torradas de arroz integral com homus caseiro",
+                "1 Kiwi maduro picado + Iogurte desnatado com chia",
+                "Suco de limão espremido na hora com gengibre + 2 ovos cozidos apenas com sal rosa"
+            ],
+            jantares: [
+                "Sopa diurética de legumes com peito de frango desfiado e salsão",
+                "Omelete de peito de peru light com tomate cereja + Salada de rúcula com limão",
+                "120g de Filé de frango ao molho de ervas finas + Brócolis cozido no vapor",
+                "120g de Tilápia grelhada com alecrim + Creme leve de cenoura com alho-poró",
+                "Salada funcional de atum em água (1 lata) com folhas, cebola roxa, tomate e linhaça"
+            ]
+        },
+        detox: {
+            cafes: [
+                "Suco Verde Vitalidade (Limão, couve, maçã, pepino e gengibre) + 2 Ovos cozidos moles",
+                "Mamão picado com 1 colher de farelo de aveia + Chá de capim-limão morno",
+                "Smoothie antioxidante (mirtilos, morangos, água de coco e 1 colher de sementes de girassol)",
+                "Abacate amassado (meio) com gotinhas de limão e sementes de gergelim + Chá de hortelã",
+                "1 Omelete simples de ovos caipiras feito no óleo de coco + Chá branco gelado"
+            ],
+            almocos: [
+                "120g de Peito de frango cozido com cúrcuma + Mix de folhas verdes com limão e chia",
+                "120g de Filé de pescada cozida no vapor + Abóbora cozida + brócolis salpicados com sementes de gergelim",
+                "Sopa detox de lentilha com cenoura, espinafre, alho e azeite de oliva extravirgem",
+                "120g de Filé de salmão grelhado com raspas de limão siciliano + Salada de rúcula, alface e rabanete",
+                "Quinoa cozida (4 colheres) com cubos de tofu grelhado ou frango desfiado + Abobrinha cozida"
+            ],
+            lanches: [
+                "1 Tangerina doce + 20g de sementes de abóbora tostadas sem sal",
+                "Suco de melancia com hortelã e gengibre batidos com gelo",
+                "1 Xícara de mirtilos ou morangos frescos + Chá digestivo de alecrim",
+                "1 Maçã verde fatiada e salpicada com canela em pó",
+                "Mix de sementes (girassol, abóbora e linhaça) + 1 fatia média de melão espanhol"
+            ],
+            jantares: [
+                "Creme de abóbora cabotiá com gengibre e frango desfiado leve",
+                "120g de Filé de pescada grelhado + abobrinha e cenoura cortadas em tiras finas e grelhadas",
+                "Sopa reconfortante de cebola com caldo de ossos natural e frango desfiado",
+                "Omelete de claras com tomate, cebola e salsinha + Salada de alface baby e pepino japonês",
+                "120g de Peito de frango grelhado + brócolis no vapor regados com um fio de azeite extravirgem"
+            ]
+        }
+    };
+
+    const base = alimentos[challengeId] || alimentos['seca'];
+
+    const idxCafe = (day - 1) % base.cafes.length;
+    const idxAlmoco = day % base.almocos.length;
+    const idxLanche = (day + 1) % base.lanches.length;
+    const idxJantar = (day + 2) % base.jantares.length;
+
+    const cafe = base.cafes[idxCafe];
+    const almoco = base.almocos[idxAlmoco];
+    const lanche = base.lanches[idxLanche];
+    const jantar = base.jantares[idxJantar];
+
+    if (option === 'lowcarb') {
+        return [
+            { r: "Café da Manhã (Low Carb)", c: cafe.replace(/pão|aveia|tapioca|granola|mandioca|arroz/gi, "Ovos extras ou Abacate") },
+            { r: "Almoço (Low Carb)", c: almoco.replace(/arroz integral|batata doce|mandioca|purê|quinoa/gi, "Brócolis ou Espargos extras") },
+            { r: "Lanche (Low Carb)", c: lanche.replace(/banana|morango|maçã|melão|tangerina|arroz/gi, "Castanhas ou Ovos Cozidos") },
+            { r: "Jantar (Low Carb)", c: jantar.replace(/batata doce|purê|cenoura/gi, "Salada de folhas verdes com azeite") }
+        ];
+    } else if (option === 'proteico') {
+        return [
+            { r: "Café da Manhã (Alta Proteína)", c: cafe + " + 1 scoop de Whey Protein (ou +3 claras de ovos)" },
+            { r: "Almoço (Alta Proteína)", c: almoco.replace(/120g|150g/gi, "180g de Proteína Grelhada") },
+            { r: "Lanche (Alta Proteína)", c: lanche + " + Iogurte Proteico desnatado (20g de proteína)" },
+            { r: "Jantar (Alta Proteína)", c: jantar.replace(/120g|150g/gi, "180g de Proteína Magra") }
+        ];
+    } else {
+        return [
+            { r: "Café da Manhã", c: cafe },
+            { r: "Almoço", c: almoco },
+            { r: "Lanche", c: lanche },
+            { r: "Jantar", c: jantar }
+        ];
+    }
+};
+
+window.generateDailyWorkout = (challengeId, day) => {
+    const intensityPercent = Math.min(100, Math.round(15 + (day - 1) * (85 / 29)));
+    
+    let fase = "Fase 1: Adaptação & Ignição";
+    let sets = 3;
+    let reps = "10 a 12";
+    let rest = "60s";
+    let levelEmoji = "🔥";
+    
+    if (day > 7 && day <= 15) {
+        fase = "Fase 2: Aceleração Calórica";
+        sets = 4;
+        reps = "12 a 15";
+        rest = "45s";
+        levelEmoji = "🔥🔥";
+    } else if (day > 15 && day <= 23) {
+        fase = "Fase 3: Queima Intensa";
+        sets = 4;
+        reps = "15 a 20";
+        rest = "30s";
+        levelEmoji = "🔥🔥🔥";
+    } else if (day > 23) {
+        fase = "Fase 4: Overdrive Metabólico";
+        sets = 5;
+        reps = "20 ou AMRAP (Até a falha)";
+        rest = "30s";
+        levelEmoji = "🔥🔥🔥🔥";
+    }
+
+    const baseCal = challengeId === 'seca' ? 300 : challengeId === 'legs' ? 280 : challengeId === 'core' ? 250 : 200;
+    const kcal = Math.round(baseCal + (day * 13));
+
+    const exerciciosDb = {
+        seca: {
+            casa: [
+                "Polichinelos rápidos", "Burpees explosivos", "Flexões de braço", 
+                "Agachamento com salto", "Mountain climbers", "Abdominal bicicleta", 
+                "Corrida estacionária de joelhos altos", "Prancha dinâmica (sobe/desce)"
+            ],
+            academia: [
+                "Esteira rápida com inclinação", "Thrusters com halteres", "Slams com Medicine Ball", 
+                "Kettlebell swings explosivos", "Saltos sobre a caixa (Box Jumps)", "Remo seco (Rowing Machine)", 
+                "Remada alta no cabo + agachamento", "Passadas com halteres no corredor"
+            ]
+        },
+        legs: {
+            casa: [
+                "Agachamentos livres lentos (técnica constante)", "Afundos/Passadas alternadas", "Elevações pélvicas deitados", 
+                "Agachamento sumô sustentado no fundo", "Donkey kicks (quatro apoios)", "Agachamento búlgaro na cadeira", 
+                "Panturrilhas em pé na escada", "Wall Sit (isometria na parede)"
+            ],
+            academia: [
+                "Agachamento livre com barra olímpica", "Leg Press 45º (amplitude total)", "Cadeira extensora (com pico de contração)", 
+                "Mesa flexora deitados", "Hip Thrust (Elevação pélvica pesada com barra)", "Smith Machine agachamentos com pés juntos", 
+                "Stiff com halteres", "Panturrilhas sentado na máquina"
+            ]
+        },
+        core: {
+            casa: [
+                "Prancha frontal isométrica", "Abdominais curtos (supra)", "Abdominais infra (elevação de pernas)", 
+                "Prancha lateral (cada lado)", "Superman estático (lombar)", "Bicycle crunches intensos", 
+                "Abdominal canivete", "Prancha com rotação de quadril"
+            ],
+            academia: [
+                "Weighted Planks (Prancha com anilha nas costas)", "Hanging Leg Raises (Elevação de pernas na barra fixa)", "Woodchops no cabo alto", 
+                "Abdominal na Polia alta (Crunches com cabo)", "Abdominal na cadeira romana inclinada com carga", "Ab Wheel rollouts (rodinha abdominal)", 
+                "Prancha lateral no banco inclinado", "Extensão lombar no banco romano"
+            ]
+        },
+        detox: {
+            casa: [
+                "Alongamento profundo de coluna e pescoço", "Saudações ao Sol (Yoga)", "Caminhada leve respiratória ao ar livre", 
+                "Exercícios de mobilidade de quadril", "Exercícios de respiração controlada (4-4-4)", "Alongamento de posteriores de coxas", 
+                "Postura da Criança (Child's Pose) para descompressão", "Mobilidade torácica de joelhos"
+            ],
+            academia: [
+                "Caminhada rápida em esteira plana (LISS)", "Pedalada leve na bicicleta ergométrica", "Alongamentos usando espaldar da academia", 
+                "Uso de rolo de liberação miofascial (foam roller)", "Exercícios suaves de rotação de ombros na polia leve", "Caminhada em ritmo LISS no elíptico", 
+                "Alongamentos de panturrilha e quadríceps suspensos", "Sessão de relaxamento na sala de alongamentos"
+            ]
+        }
+    };
+
+    const db = exerciciosDb[challengeId] || exerciciosDb['seca'];
+
+    const ex1Casa = db.casa[(day - 1) % db.casa.length];
+    const ex2Casa = db.casa[day % db.casa.length];
+    const ex3Casa = db.casa[(day + 1) % db.casa.length];
+    const ex4Casa = db.casa[(day + 2) % db.casa.length];
+
+    const ex1Acad = db.academia[(day - 1) % db.academia.length];
+    const ex2Acad = db.academia[day % db.academia.length];
+    const ex3Acad = db.academia[(day + 1) % db.academia.length];
+    const ex4Acad = db.academia[(day + 2) % db.academia.length];
+
+    return {
+        fase,
+        sets,
+        reps,
+        rest,
+        intensityPercent,
+        levelEmoji,
+        kcal,
+        casa: [
+            { name: ex1Casa, desc: `${sets} séries de ${reps}. Descanso de ${rest}. Foco na amplitude de movimento.` },
+            { name: ex2Casa, desc: `${sets} séries de ${reps}. Descanso de ${rest}. Cadência lenta e controlada.` },
+            { name: ex3Casa, desc: `${sets} séries de ${reps}. Descanso de ${rest}. Contração voluntária máxima.` },
+            { name: ex4Casa, desc: `${sets} séries de ${reps}. Descanso de ${rest}. Mantenha a respiração estável.` }
+        ],
+        academia: [
+            { name: ex1Acad, desc: `${sets} séries de ${reps}. Descanso de ${rest}. Carga progressiva e segura.` },
+            { name: ex2Acad, desc: `${sets} séries de ${reps}. Descanso de ${rest}. Foco no pico de contração de 2s.` },
+            { name: ex3Acad, desc: `${sets} séries de ${reps}. Descanso de ${rest}. Execução controlada na descida.` },
+            { name: ex4Acad, desc: `${sets} séries de ${reps}. Descanso de ${rest}. Sobrecarga progressiva constante.` }
+        ]
+    };
+};
+
+// --- CORE CHALLENGES INTERACTIVE LOGIC ---
+
+window.currentActiveDesafioId = null;
+window.currentSelectedDayIndex = 0;
+window.currentChallengeDietOption = 'tradicional';
+window.currentChallengeWorkoutOption = 'casa';
+
 window.renderDesafios = () => {
     const selectionView = document.getElementById('desafios-selection-view');
     const activeView = document.getElementById('desafio-active-view');
@@ -2322,12 +2609,22 @@ window.renderDesafios = () => {
     }).join('');
 };
 
-let currentActiveDesafioId = null;
-
 window.selecionarDesafio = (id) => {
-    currentActiveDesafioId = id;
+    window.currentActiveDesafioId = id;
     const desafio = DESAFIOS_DATA[id];
     if (!desafio) return;
+
+    const data = Storage.getData() || {};
+    const progressData = data.desafios_progress || {};
+    const checkedDays = progressData[id] || Array(30).fill(false);
+    
+    // Inicializar no primeiro dia incompleto
+    const firstIncomplete = checkedDays.findIndex(d => !d);
+    window.currentSelectedDayIndex = firstIncomplete !== -1 ? firstIncomplete : 0;
+    
+    // Configurar opções padrão conforme o plano do usuário
+    window.currentChallengeDietOption = 'tradicional';
+    window.currentChallengeWorkoutOption = data.local_treino === 'academia' ? 'academia' : 'casa';
 
     const selectionView = document.getElementById('desafios-selection-view');
     const activeView = document.getElementById('desafio-active-view');
@@ -2339,16 +2636,54 @@ window.selecionarDesafio = (id) => {
     document.getElementById('active-desafio-desc').innerText = desafio.desc;
     document.getElementById('active-desafio-badge').innerText = desafio.badge;
 
-    renderDesafioActiveDays();
+    window.renderDesafioActiveDays();
 };
 
 window.voltarParaSelecaoDesafios = () => {
-    currentActiveDesafioId = null;
+    window.currentActiveDesafioId = null;
     window.renderDesafios();
 };
 
-function renderDesafioActiveDays() {
-    const id = currentActiveDesafioId;
+window.selecionarDiaDesafio = (index) => {
+    window.currentSelectedDayIndex = index;
+    window.renderDesafioActiveDays();
+};
+
+window.setChallengeDietOption = (option) => {
+    window.currentChallengeDietOption = option;
+    window.renderDesafioActiveDays();
+};
+
+window.setChallengeWorkoutOption = (option) => {
+    window.currentChallengeWorkoutOption = option;
+    window.renderDesafioActiveDays();
+};
+
+window.concluirDiaSelecionado = () => {
+    const id = window.currentActiveDesafioId;
+    if (!id) return;
+    const index = window.currentSelectedDayIndex;
+
+    const data = Storage.getData() || {};
+    if (!data.desafios_progress) data.desafios_progress = {};
+    if (!data.desafios_progress[id]) data.desafios_progress[id] = Array(30).fill(false);
+
+    // Toggle o dia
+    data.desafios_progress[id][index] = !data.desafios_progress[id][index];
+
+    // Salvar no localstorage
+    Storage.saveData(data);
+
+    // Auto-avançar para o próximo dia se houver e se acabou de completar
+    if (data.desafios_progress[id][index] && index < 29) {
+        window.currentSelectedDayIndex = index + 1;
+    }
+
+    window.renderDesafioActiveDays();
+};
+
+window.renderDesafioActiveDays = () => {
+    const id = window.currentActiveDesafioId;
     const desafio = DESAFIOS_DATA[id];
     if (!desafio) return;
 
@@ -2356,43 +2691,166 @@ function renderDesafioActiveDays() {
     const progressData = data.desafios_progress || {};
     const checkedDays = progressData[id] || Array(30).fill(false);
 
-    // Render Challenge Diet
-    const dietContainer = document.getElementById('active-desafio-diet-content');
-    if (dietContainer && desafio.diet) {
-        dietContainer.innerHTML = desafio.diet.map(item => `
-            <div style="background: rgba(0,0,0,0.02); padding: 10px 12px; border-radius: 8px; border-left: 3px solid var(--primary);">
-                <strong style="color: var(--primary); font-size: 0.75rem; text-transform: uppercase; display: block;">${item.r}</strong>
-                <span style="font-size: 0.9rem; color: var(--text-main); font-weight: 600; margin-top: 3px; display: block;">${item.c}</span>
-            </div>
-        `).join('');
-    }
-
-    // Render Challenge Exercises
-    const workoutContainer = document.getElementById('active-desafio-workout-content');
-    if (workoutContainer && desafio.workout) {
-        workoutContainer.innerHTML = desafio.workout.map(item => `
-            <div style="background: rgba(0,0,0,0.02); padding: 10px 12px; border-radius: 8px; border-left: 3px solid var(--accent);">
-                <strong style="color: var(--accent); font-size: 0.8rem; display: block;">${item.ex}</strong>
-                <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 3px; display: block;">${item.c}</span>
-            </div>
-        `).join('');
-    }
-
-    // Render Calendar Grid
+    // 1. Renderizar Grade do Calendário (30 Dias)
     const daysGrid = document.getElementById('desafio-days-grid');
     if (daysGrid) {
-        daysGrid.innerHTML = desafio.tasks.map((task, index) => {
+        daysGrid.innerHTML = Array(30).fill(null).map((_, index) => {
+            const dayNum = index + 1;
             const isCompleted = checkedDays[index];
+            const isSelected = (index === window.currentSelectedDayIndex);
+            
+            // Gerar informações dinâmicas do treino do dia
+            const workout = window.generateDailyWorkout(id, dayNum);
+            
             return `
-                <div class="desafio-day-box ${isCompleted ? 'completed' : ''}" onclick="toggleDesafioDay(${index})">
-                    <span class="desafio-day-number">Dia ${index + 1}</span>
-                    <span class="desafio-day-task">${task}</span>
+                <div class="desafio-day-box ${isCompleted ? 'completed' : ''} ${isSelected ? 'selected' : ''}" onclick="selecionarDiaDesafio(${index})">
+                    <span class="desafio-day-number">Dia ${dayNum}</span>
+                    <span class="desafio-day-task" style="color: var(--primary); font-weight: 800; font-size: 0.72rem; margin-top: 3px; display: block;">
+                        🔥 ${workout.kcal} kcal
+                    </span>
+                    <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 500; display: block; margin-top: 2px;">
+                        ${workout.casa.length} Exercícios
+                    </span>
                 </div>
             `;
         }).join('');
     }
 
-    // Update Progress Data
+    // 2. Renderizar Detalhes do Dia Selecionado
+    const detailsContainer = document.getElementById('active-desafio-day-details-container');
+    if (detailsContainer) {
+        const selectedDay = window.currentSelectedDayIndex + 1;
+        const workout = window.generateDailyWorkout(id, selectedDay);
+        const dietOptions = window.generateDailyDiet(id, selectedDay, window.currentChallengeDietOption);
+        const isCompleted = checkedDays[window.currentSelectedDayIndex];
+
+        // Definir a classe de cor da fase baseada na intensidade
+        let phaseColor = "#3b82f6"; // azul (fase 1)
+        if (selectedDay > 7 && selectedDay <= 15) phaseColor = "#10b981"; // verde (fase 2)
+        else if (selectedDay > 15 && selectedDay <= 23) phaseColor = "#f59e0b"; // laranja (fase 3)
+        else if (selectedDay > 23) phaseColor = "#ef4444"; // vermelho (fase 4)
+
+        // Definir conteúdo do treino baseado no ambiente ativo
+        const activeWorkoutType = window.currentChallengeWorkoutOption;
+        const exercises = activeWorkoutType === 'academia' ? workout.academia : workout.casa;
+
+        detailsContainer.innerHTML = `
+            <div class="selected-day-details-card" style="border-top: 5px solid ${phaseColor};">
+                <!-- Cabeçalho do Dia -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <span class="intensity-badge" style="background: ${phaseColor};">
+                            ${workout.fase.toUpperCase()}
+                        </span>
+                        <h3 style="font-size: 1.8rem; color: var(--secondary); margin-top: 8px; font-weight: 800; letter-spacing: -1px;">
+                            Dia ${selectedDay} de 30
+                        </h3>
+                    </div>
+                    <div style="text-align: right; display: flex; flex-direction: column; gap: 4px;">
+                        <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: bold; text-transform: uppercase;">Intensidade Metabólica</span>
+                        <div style="font-size: 1.25rem; font-weight: 800; color: ${phaseColor}; display: flex; align-items: center; justify-content: flex-end; gap: 6px;">
+                            <span>${workout.intensityPercent}%</span>
+                            <span class="intensity-flame">${workout.levelEmoji}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Painel de Duas Colunas (Dieta & Treinos) -->
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 0; margin-bottom: 2.5rem; align-items: stretch;">
+                    
+                    <!-- COLUNA 1: ALIMENTAÇÃO DIÁRIA -->
+                    <div class="card" style="margin: 0; padding: 1.5rem; display: flex; flex-direction: column; background: #fafbfc; border: 1px solid rgba(0,0,0,0.04);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 8px; border-bottom: 1px solid var(--border); padding-bottom: 0.8rem;">
+                            <h4 style="color: var(--secondary); font-size: 1.15rem; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 8px;">
+                                <span>🥗</span> Alimentação do Dia
+                            </h4>
+                            
+                            <!-- Sub-abas de Opções Alimentares -->
+                            <div style="display: flex; gap: 4px; background: rgba(0,0,0,0.03); padding: 3px; border-radius: 8px;">
+                                <button class="btn-outline" style="padding: 4px 8px; font-size: 0.7rem; border-radius: 6px; border: none; font-weight: bold; background: ${window.currentChallengeDietOption === 'tradicional' ? 'white' : 'transparent'}; box-shadow: ${window.currentChallengeDietOption === 'tradicional' ? 'var(--shadow-sm)' : 'none'}; color: ${window.currentChallengeDietOption === 'tradicional' ? 'var(--primary)' : 'var(--text-muted)'};" onclick="setChallengeDietOption('tradicional')">Tradicional</button>
+                                <button class="btn-outline" style="padding: 4px 8px; font-size: 0.7rem; border-radius: 6px; border: none; font-weight: bold; background: ${window.currentChallengeDietOption === 'lowcarb' ? 'white' : 'transparent'}; box-shadow: ${window.currentChallengeDietOption === 'lowcarb' ? 'var(--shadow-sm)' : 'none'}; color: ${window.currentChallengeDietOption === 'lowcarb' ? 'var(--primary)' : 'var(--text-muted)'};" onclick="setChallengeDietOption('lowcarb')">Low Carb</button>
+                                <button class="btn-outline" style="padding: 4px 8px; font-size: 0.7rem; border-radius: 6px; border: none; font-weight: bold; background: ${window.currentChallengeDietOption === 'proteico' ? 'white' : 'transparent'}; box-shadow: ${window.currentChallengeDietOption === 'proteico' ? 'var(--shadow-sm)' : 'none'}; color: ${window.currentChallengeDietOption === 'proteico' ? 'var(--primary)' : 'var(--text-muted)'};" onclick="setChallengeDietOption('proteico')">Proteico</button>
+                            </div>
+                        </div>
+
+                        <!-- Lista de Refeições -->
+                        <div style="display: flex; flex-direction: column; gap: 12px; flex-grow: 1;">
+                            ${dietOptions.map((item, idx) => {
+                                const mealIcons = ["🌅", "☀️", "🌇", "🌙"];
+                                return `
+                                    <div style="background: white; padding: 12px; border-radius: 10px; border-left: 4px solid var(--primary); box-shadow: var(--shadow-sm);">
+                                        <div style="font-weight: 800; font-size: 0.75rem; color: var(--primary); text-transform: uppercase; display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+                                            <span>${mealIcons[idx]}</span>
+                                            <span>${item.r}</span>
+                                        </div>
+                                        <div style="font-size: 0.88rem; color: var(--text-main); font-weight: 500; line-height: 1.4;">
+                                            ${item.c}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+
+                    <!-- COLUNA 2: EXERCÍCIOS E TREINO DIÁRIO -->
+                    <div class="card" style="margin: 0; padding: 1.5rem; display: flex; flex-direction: column; background: #fafbfc; border: 1px solid rgba(0,0,0,0.04);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 8px; border-bottom: 1px solid var(--border); padding-bottom: 0.8rem;">
+                            <h4 style="color: var(--secondary); font-size: 1.15rem; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 8px;">
+                                <span>🏋️</span> Treino do Dia
+                            </h4>
+                            
+                            <!-- Sub-abas de Ambiente de Treino -->
+                            <div style="display: flex; gap: 4px; background: rgba(0,0,0,0.03); padding: 3px; border-radius: 8px;">
+                                <button class="btn-outline" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 6px; border: none; font-weight: bold; background: ${activeWorkoutType === 'casa' ? 'white' : 'transparent'}; box-shadow: ${activeWorkoutType === 'casa' ? 'var(--shadow-sm)' : 'none'}; color: ${activeWorkoutType === 'casa' ? 'var(--accent)' : 'var(--text-muted)'};" onclick="setChallengeWorkoutOption('casa')">🏠 Casa</button>
+                                <button class="btn-outline" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 6px; border: none; font-weight: bold; background: ${activeWorkoutType === 'academia' ? 'white' : 'transparent'}; box-shadow: ${activeWorkoutType === 'academia' ? 'var(--shadow-sm)' : 'none'}; color: ${activeWorkoutType === 'academia' ? 'var(--accent)' : 'var(--text-muted)'};" onclick="setChallengeWorkoutOption('academia')">💪 Academia</button>
+                            </div>
+                        </div>
+
+                        <!-- Detalhes do Treino (Queima e Estrutura) -->
+                        <div style="background: linear-gradient(to right, #fffdf5, #fffbeb); border: 1px dashed #fcd34d; border-radius: 10px; padding: 10px 14px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <div style="font-size: 0.85rem; color: #b45309; font-weight: 700;">
+                                🔥 Foco em Queima Calórica
+                            </div>
+                            <div style="font-size: 0.95rem; color: #ef4444; font-weight: 800; display: flex; align-items: center; gap: 4px;">
+                                <span>+${workout.kcal}</span>
+                                <span style="font-size: 0.75rem; font-weight: bold;">kcal</span>
+                            </div>
+                        </div>
+
+                        <!-- Lista de Exercícios -->
+                        <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1;">
+                            ${exercises.map((ex, idx) => `
+                                <div style="background: white; padding: 12px; border-radius: 10px; border-left: 4px solid var(--accent); box-shadow: var(--shadow-sm); display: flex; gap: 10px; align-items: center;">
+                                    <div style="background: rgba(245, 158, 11, 0.1); color: var(--accent); font-weight: 800; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0;">
+                                        ${idx + 1}
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 800; font-size: 0.88rem; color: var(--secondary);">${ex.name}</div>
+                                        <div style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600; margin-top: 2px;">${ex.desc}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Botão de Ação Rápida no Rodapé -->
+                <div style="border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div style="font-size: 0.88rem; color: var(--text-muted); font-weight: 600;">
+                        Terminou a rotina de hoje? Registre no seu diário!
+                    </div>
+                    <button class="${isCompleted ? 'btn-outline' : 'btn-primary'}" 
+                            style="padding: 0.8rem 2rem; font-size: 0.95rem; font-weight: 800; display: flex; align-items: center; gap: 8px; border-color: ${isCompleted ? '#e2e8f0' : 'var(--primary)'}; background: ${isCompleted ? 'white' : 'var(--primary)'}; color: ${isCompleted ? 'var(--text-muted)' : 'white'}; min-width: 250px; justify-content: center; box-shadow: ${isCompleted ? 'none' : '0 4px 10px rgba(16, 185, 129, 0.2)'};" 
+                            onclick="concluirDiaSelecionado()">
+                        ${isCompleted ? '✕ Desfazer Registro de Conclusão' : '✓ Registrar Dia ' + selectedDay + ' como Concluído!'}
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
+    // 3. Atualizar Dados Globais e Progresso Total
     const completedDays = checkedDays.filter(d => d).length;
     const percentage = Math.round((completedDays / 30) * 100);
 
@@ -2402,27 +2860,15 @@ function renderDesafioActiveDays() {
     const barEl = document.getElementById('active-desafio-bar');
     if (barEl) barEl.style.width = `${percentage}%`;
 
-    // Show Certificate Option if 100% completed
+    // Exibir Certificado apenas se todos os 30 dias estiverem completos
     const completedCard = document.getElementById('desafio-completed-card');
     if (completedCard) {
         completedCard.style.display = (completedDays === 30) ? 'block' : 'none';
     }
-}
+};
 
 window.toggleDesafioDay = (dayIndex) => {
-    const id = currentActiveDesafioId;
-    if (!id) return;
-
-    const data = Storage.getData() || {};
-    if (!data.desafios_progress) data.desafios_progress = {};
-    if (!data.desafios_progress[id]) data.desafios_progress[id] = Array(30).fill(false);
-
-    // Toggle
-    data.desafios_progress[id][dayIndex] = !data.desafios_progress[id][dayIndex];
-
-    // Save & Re-render
-    Storage.saveData(data);
-    renderDesafioActiveDays();
+    window.selecionarDiaDesafio(dayIndex);
 };
 
 window.gerarCertificadoDesafio = () => {
