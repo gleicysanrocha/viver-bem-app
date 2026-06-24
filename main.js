@@ -252,66 +252,9 @@ window.handleAuth = async () => {
     btn.innerText = "Aguarde...";
 
     if (!auth) {
-        // --- LOCALSTORAGE AUTH FALLBACK ---
-        console.warn("Usando sistema de autenticação local offline...");
-        try {
-            const localUsersRaw = localStorage.getItem('viver_bem_offline_users');
-            const localUsers = localUsersRaw ? JSON.parse(localUsersRaw) : {};
-            const emailKey = email.toLowerCase();
-
-            if (isLoginMode) {
-                // Login Offline
-                const existingUser = localUsers[emailKey];
-                if (!existingUser) {
-                    alert("Usuário não encontrado localmente. Crie uma conta se for novo por aqui.");
-                    btn.disabled = false;
-                    btn.innerText = originalText;
-                    return;
-                }
-                if (existingUser.password !== pass) {
-                    alert("E-mail ou senha incorretos.");
-                    btn.disabled = false;
-                    btn.innerText = originalText;
-                    return;
-                }
-                
-                // Login efetuado com sucesso
-                console.log("Usuário autenticado localmente:", email);
-                Storage.setSession(existingUser.uid, email);
-                showDashboard();
-            } else {
-                // Cadastro Offline
-                if (localUsers[emailKey]) {
-                    alert("Este e-mail já está em uso.");
-                    btn.disabled = false;
-                    btn.innerText = originalText;
-                    return;
-                }
-
-                const newUid = "offline_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
-                localUsers[emailKey] = {
-                    password: pass,
-                    uid: newUid
-                };
-                localStorage.setItem('viver_bem_offline_users', JSON.stringify(localUsers));
-
-                // Salva dados iniciais para o novo usuário
-                Storage.saveUserLocally(newUid, email, {
-                    plans: [],
-                    historico: [],
-                    data_cadastro: new Date().toISOString()
-                });
-
-                console.log("Usuário registrado localmente:", email);
-                Storage.setSession(newUid, email);
-                showDashboard();
-            }
-        } catch (err) {
-            console.error("Erro na autenticação local:", err);
-            alert("Erro inesperado ao realizar autenticação local.");
-            btn.disabled = false;
-            btn.innerText = originalText;
-        }
+        alert("Nao foi possivel conectar ao Firebase. Verifique sua conexao e tente novamente.");
+        btn.disabled = false;
+        btn.innerText = originalText;
         return;
     }
 
