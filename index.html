@@ -50,6 +50,9 @@
                 <span id="auth-toggle-text">Novo por aqui?</span>
                 <a href="#" style="color: var(--primary); font-weight: 700; text-decoration: none;" onclick="toggleAuthMode()">Crie sua conta</a>
             </p>
+            <p style="margin-top: 1rem; text-align: center; font-size: 0.82rem;">
+                <a href="./privacy.html" style="color: var(--text-muted); font-weight: 600; text-decoration: none;">Política de privacidade</a>
+            </p>
         </div>
     </div>
 
@@ -455,6 +458,16 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker
+                    .register('./service-worker.js')
+                    .catch((error) => console.warn('Service Worker nao registrado:', error));
+            });
+        }
+    </script>
 
     <!-- Main Application Script -->
     <script src="./main.js?v=3"></script>
