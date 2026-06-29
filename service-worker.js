@@ -1,4 +1,4 @@
-const CACHE_NAME = 'viver-bem-v9';
+const CACHE_NAME = 'viver-bem-v10';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',

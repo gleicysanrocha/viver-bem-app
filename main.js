@@ -132,6 +132,16 @@ const Cloud = {
             console.error("Erro ao baixar da nuvem:", e);
         }
         return null;
+    },
+    deleteUserInfo: async (uid) => {
+        if (!db || !uid) return;
+        try {
+            await doc(db, "users", uid).delete();
+            console.log("Dados da conta removidos da nuvem.");
+        } catch (e) {
+            console.error("Erro ao remover dados da nuvem:", e);
+            throw e;
+        }
     }
 };
 
@@ -294,6 +304,38 @@ window.handleLogout = async () => {
     }
     Storage.logout();
     location.reload();
+};
+
+window.handleDeleteAccount = async () => {
+    if (!auth || !auth.currentUser) {
+        alert("Entre na sua conta para solicitar a exclusao.");
+        return;
+    }
+
+    const confirmation = prompt("Esta acao exclui sua conta e seus dados salvos na nuvem. Para confirmar, digite EXCLUIR:");
+    if (confirmation !== "EXCLUIR") return;
+
+    const user = auth.currentUser;
+    const uid = user.uid;
+
+    try {
+        await Cloud.deleteUserInfo(uid);
+        localStorage.removeItem(`data_${uid}`);
+        Storage.logout();
+        await user.delete();
+        alert("Conta e dados excluidos com sucesso.");
+        location.reload();
+    } catch (error) {
+        console.error("Erro ao excluir conta:", error);
+        if (error.code === "auth/requires-recent-login") {
+            alert("Por seguranca, entre novamente na conta e repita a exclusao.");
+            await signOut(auth);
+            Storage.logout();
+            location.reload();
+            return;
+        }
+        alert("Nao foi possivel excluir a conta agora. Tente novamente em alguns minutos.");
+    }
 };
 
 // --- BACKUP UI HANDLERS ---
